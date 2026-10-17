@@ -4,9 +4,9 @@ Measured on a single RTX 4070 Ti SUPER (16 GB) with Qwen3-Next-80B-A3B-Instruct 
 
 **TL;DR**
 
-- **The bottleneck in the cache configuration is PCIe, not memory bandwidth.** With cache=0 the run hits **47.0 GB/s** against a measured **48 GB/s** RAM ceiling (97.9% closure). With cache=10752 it is capped by **PCIe 4.0 ×16 = 24.45 GB/s**, implying an **82.7%** expert hit rate. Two independent measurements (RAM side and PCIe side) agree on ~83% — the two-path model is self-consistent.
-- **That is why this should generalise**: the ceiling sits on PCIe, a hardware constant, not on the memory subsystem that varies wildly between platforms.
-- **Expert caching is quality-neutral in this implementation**: teacher-forced perplexity is **bit-identical** (4.4617 ± 0.14700) at cache = 0 / 512 / 2048 / 10752 MiB.
+- **A bandwidth model fits the data — but it is a hypothesis, not a proven mechanism.** cache=0 lands at **47.0 GB/s** against a measured **48 GB/s** RAM ceiling (97.9% closure). cache=10752 is consistent with being capped by **PCIe 4.0 ×16 (~24.45 GB/s)**, which would imply an ~83% hit rate. **This is circular reasoning**: the hit rate is derived from speed and bandwidth, then used to argue PCIe is saturated. Confirming gen4 x16 only proves the link *configuration*, not that 24.45 GB/s is actually achieved. The 1.75 GB/token figure is also a proportional estimate, not a per-layer ledger. Treat the attribution as an open question.
+- **If the PCIe hypothesis holds, it would explain portability**: the ceiling would sit on a hardware constant rather than on the memory subsystem. **This has not been tested on a second machine.**
+- **No perplexity change was observed** at cache = 0 / 512 / 2048 / 10752 MiB (4.4617 ± 0.14700, 20 chunks of WikiText-2, 4-decimal precision). This is **not** a bit-identical claim and does not cover the decode path.
 - **It is very much speed-relevant**: decode goes from 26.8 t/s (cache off) to **80.8 t/s** (cache 10752 MiB) on identical settings.
 - **There is a real valley at small caches**: cache 512 MiB is *slower* than cache 0 (20.4 vs 26.8 t/s, −23.9%).
 - **`ncmoe` and cache compete for the same VRAM.** On 16 GB, `ncmoe 48` is the only setting that does not collapse — `ncmoe 44` already drops to 23.7 t/s.
@@ -208,3 +208,20 @@ The exact commands are in [`data/05-environment/commands.md`](data/05-environmen
 Data and scripts here are our own measurements. Prior work is cited, not reproduced. If you use these numbers, cite this repo and note the engine build (b11617) — expert-cache behaviour is version-specific.
 
 
+
+## Audit corrections (2026-10-17)
+
+An external audit found real defects. All are confirmed and fixed; details in
+[`AUDIT-RESPONSE.md`](AUDIT-RESPONSE.md) and `data/05-environment/MEDIAN-CORRECTION.csv`.
+
+| # | Defect | Status |
+|---|---|---|
+| 1 | The reported "median" was actually the **maximum** of 3 runs (`ds[[int](3/2)]`) | Fixed; every summary regenerated. cache0 26.842→**26.806**, cache10752 80.809→**80.673**, ncmoe48 80.917→**80.144** |
+| 2 | "Three independent processes" was **three requests in one server process** | Reworded; cross-process repeatability now listed as untested |
+| 3 | PCIe attribution was **circular** | Demoted to hypothesis throughout |
+| 4 | "Server cannot log hit rate" may be caused by `Stop-Process -Force` skipping `log_stats()` | Retested with graceful `taskkill`; still no stats, but impossibility is no longer claimed |
+| 5 | "bit-identical PPL" overstated | Reworded to "no change at 4 decimals over 20 chunks" |
+| 6 | Repo copy was missing 22 runtime files; `usage_log.csv` hash mismatched | Fixed; both rounds now verify 0 missing / 0 mismatched |
+
+**What survives the audit:**
+> On this 16 GB card and workstation, expert caching substantially improves speed for the tested workload: ~**80.7 t/s** on a repeated fixed prompt, ~**68.0 t/s** on varied real inputs. Small caches can regress. No perplexity change was observed in the limited test. Bottleneck attribution and consumer-platform portability still require independent verification.

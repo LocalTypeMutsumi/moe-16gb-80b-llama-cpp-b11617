@@ -2,9 +2,9 @@
 
 **标题候选（选一个）**
 
-1. `80B MoE on a 16 GB card: the ceiling is PCIe (24.5 GB/s), not memory bandwidth — 81 t/s, 83% expert hit rate, 0.0000% perplexity change`
-2. `Measured: expert cache is quality-free (identical PPL), and the bottleneck is PCIe lane width, not RAM`
-3. `Qwen3-Next-80B-A3B on 4070 Ti SUPER 16 GB: 68–81 t/s, and why PCIe — not memory — sets the ceiling`
+1. `80B MoE on a 16 GB card: 68–81 t/s with expert cache, and the bandwidth model that fits (PCIe hypothesis)`
+2. `Measured: no perplexity change from expert cache across 4 cache sizes, and where the bandwidth ceiling seems to sit`
+3. `Qwen3-Next-80B-A3B on 4070 Ti SUPER 16 GB: 68–81 t/s and a bandwidth model I cannot yet prove`
 
 推荐 **1**（信息量最大、直接点出可移植性）。
 
@@ -146,4 +146,5 @@ So "tg128 with random tokens" and "one prompt N times" both measure warm-cache c
 Raw per-run JSON, telemetry CSVs, scripts, and the perplexity stderr logs are here: **`https://github.com/LocalTypeMutsumi/moe-16gb-80b-llama-cpp-b11617`**
 
 Happy to add configs people care about — say the word and I'll run them.
+
 
