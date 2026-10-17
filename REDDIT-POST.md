@@ -1,4 +1,4 @@
-﻿# Reddit r/LocalLLaMA 发帖稿
+# Reddit r/LocalLLaMA 发帖稿
 
 **标题候选（选一个）**
 
@@ -16,7 +16,13 @@ I've been running Qwen3-Next-80B-A3B-Instruct Q4_K_M (80B total / 3B active) on 
 
 **Specs:** 4070 Ti SUPER 16GB (PCIe 4.0 x16, verified under load) · Threadripper PRO 5975WX 32C/64T · 4×32GB DDR4-3200 · Windows Server 2025 · llama.cpp b11617 (commit 14310190c) · Q4_K_M.
 
-## 0. The bottleneck is PCIe, and that's why this should port
+> ⚠️ **本稿基于 v1.0 数据与「已撤回」的归因，不可直接发布。**
+> 2026-10-17 外部审核后，报告中六项断言已撤回（见 `AUDIT-RESPONSE.md`）：
+> 循环推断的命中率「交叉验证」、`0.0000%`、截断坐标轴的图、定量化的「x8 腰斩」等。
+> 本文件仅保留作写作素材与叙事骨架；**发布前必须按 `README.md`（v1.1）逐段重写**。
+> 需要同步的关键点：数值已修正（26.806 / 80.673 / 80.144），带宽归因降级为待验证假设。
+
+## 0. Where the ceiling might be — and why that would matter
 
 Per token this model moves ~**1.75 GB** of expert weights.
 
@@ -36,15 +42,7 @@ PCIe 4.0 x16        =  24.45 GB/s
 ⇒ allowed misses = 0.303 GB/token  ⇒ implied hit rate = 82.7%
 ```
 
-**Cross-check, two independent measurements:**
-
-```
-RAM side  : 48 / 26.84    = 1.788 GB/token (full traffic)
-PCIe side : 24.45 / 80.81 = 0.303 GB/token (miss traffic)
-hit rate  = 1 - 0.303/1.788 = 83.1%   ← matches 82.7% within 0.4pp
-```
-
-Two different bottlenecks, two different measurements, same implied hit rate. That's why I believe the model rather than just the number.
+**A "cross-check" that does not cross-check — retracted after audit.** An earlier version used the RAM-side and PCIe-side derivations as independent confirmation. They are not: both reuse the same speeds, the same bandwidth constants and the same 1.75 GB/token guess, so their agreement is algebraic, not evidential. The 82.7% hit rate is an output of that assumption, not a measurement.
 
 **Why it should port:** in the cache configuration the RAM only needs to supply the ~24.45 GB/s that PCIe is pulling. Dual-channel DDR4-3200 measures ~30–35 GB/s, already enough. So the ceiling becomes **PCIe lane width** — a hardware constant:
 
@@ -76,7 +74,7 @@ llama_moe_cache: large batches: 3525 experts copied from the cache, 2209.95 MiB
 
 PPL runs go through the large-batch path and it serves 3525 experts from cache per pass. The reason PPL doesn't move is that fetching relocates expert weights without changing the arithmetic. So in this implementation the cache is a pure speed knob.
 
-For context: ChaeWoo Son measured +5.7% PPL for *substitution* and +0.35% for *selective fetch* on the same model. Ours is 0.0000% for fetch-only. Different hardware/implementation, so not a head-to-head — but the direction is consistent with "fetch doesn't alter numerics".
+For context: ChaeWoo Son measured +5.7% PPL for *substitution* and +0.35% for *selective fetch* on the same model. Ours shows no change at 4-decimal precision on 20 chunks for fetch-only — not a bit-identical claim. Different hardware/implementation, so not a head-to-head — but the direction is consistent with "fetch doesn't alter numerics".
 
 ## 2. The decode curve has a real valley — and no saturation
 
