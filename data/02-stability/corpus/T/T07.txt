@@ -1,0 +1,27 @@
+任务: 找出材料中每一个数值型测量值，计算这些吞吐数字的中位数与极差。
+
+材料:
+if ($event.content -and $null -eq $firstText) {
+                $firstText = $sw.Elapsed.TotalMilliseconds
+            }
+            if ($event.stop) {
+                $final = $event
+                break
+            }
+        }
+
+$sw.Stop()
+        $proc.Refresh()
+        $cpu = $proc.TotalProcessorTime.TotalSeconds - $cpu0
+        if ($null -eq $final -or $null -eq $final.timings) {
+            throw 'INCOMPLETE_RESPONSE'
+        }
+
+[pscustomobject]@{
+            PromptTokens = $final.timings.prompt_n
+            OutputTokens = $final.timings.predicted_n
+            TTFTTokenMs  = $firstToken
+            TTFTTextMs   = $firstText
+            WallSeconds  = $sw.Elapsed.TotalSeconds
+            CpuSeconds   = $cpu
+            AvgLogicalCores = $cpu / $sw.Elapsed.TotalSeconds

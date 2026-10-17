@@ -1,0 +1,38 @@
+任务: 判断下面材料属于描述性、实验性还是规范性文档，并给出理由。
+
+材料:
+.15.299.469 I sched_reserve: graph (pp bs=512, tg bs=4): nodes = 5433 / 5433, splits = 145 / 98, input objects = 4 / 4, input tensors = 10 / 10
+0.15.299.471 I sched_reserve: reserve took 21.90 ms, sched copies = 1
+```
+
+| 设备 | 张量块数 | 合计 MiB |
+|---|---|---|
+| CUDA0 | 1 | 1358.7 |
+| CPU_Mapped (mmap) | 145 | 46390.9 |
+| Host | - | 0.0 |
+| **合计** | | **47749.6** |
+
+```json
+{
+  "samples": 74,
+  "span_s": 73.26,
+  "rate_hz": 1.01,
+  "nbusy_max": 19,
+  "nbusy_avg": 6.31,
+  "nbusy_p95": 16,
+  "nbusy50_max": 4,
+  "nbusy50_avg": 1.28,
+  "nbusy50_p95": 2,
+  "nbusy1_max": 56,
+  "nbusy1_avg": 34.55,
+  "nbusy1_p95": 50,
+  "pcores_max": 1.08,
+  "pcores_avg": 0.86,
+  "pcores_p95": 1.07,
+  "cpu_max": 12,
+  "cpu_avg": 6.47,
+  "cpu_p95": 11,
+  "mem_max": 4288,
+  "mem_avg": 3605.05,
+  "mem_p95": 4284,
+  "gu_max": 76,

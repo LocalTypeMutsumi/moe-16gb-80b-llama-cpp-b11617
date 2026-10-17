@@ -197,11 +197,23 @@ foreach ($cfg in $configs) {
         $r, $rec.decode_tps, $rec.vram_peak_mib, $rec.gpu_util_max, $rec.power_min_w, $rec.power_max_w, $drift, $bstatus)
     }
 
+    # MEDIAN BUG (found by external audit 2026-10-17): the original line was
+    #   $ds[[int]($ds.Count/2)]
+    # For 3 samples [int](3/2) = [int]1.5 = 2, so it selected the MAXIMUM, not the median.
+    # All figures derived from that line were the max of 3 runs, systematically optimistic.
+    # Fixed below; MEDIAN-CORRECTION.csv lists old-vs-corrected for every configuration.
+    function Get-Median([double[]]$a) {
+      if ($a.Count -eq 0) { return $null }
+      $s = @($a | Sort-Object); $n = $s.Count
+      if ($n % 2 -eq 1) { return $s[($n - 1) / 2] }
+      return [math]::Round(($s[$n / 2 - 1] + $s[$n / 2]) / 2, 3)
+    }
+
     $ds = @($perRun | Where-Object { $_.ok -and $null -ne $_.decode_tps } | ForEach-Object { [double]$_.decode_tps } | Sort-Object)
     $meta = [ordered]@{
       label=$label; ncmoe=$cfg.ncmoe; cache=$cfg.cache; status='VALID'
       load_s=$loadS; runs=$Runs; ok=$(@($perRun|Where-Object{$_.ok}).Count)
-      decode_median=$(if ($ds.Count) { $ds[[int]($ds.Count/2)] } else { $null })
+      decode_median=$(Get-Median $ds)
       decode_min=$(if ($ds.Count) { $ds[0] } else { $null })
       decode_max=$(if ($ds.Count) { $ds[-1] } else { $null })
       baseline_statuses=@($perRun | ForEach-Object { $_.baseline_status })

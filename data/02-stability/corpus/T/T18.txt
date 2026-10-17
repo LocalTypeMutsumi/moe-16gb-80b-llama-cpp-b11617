@@ -1,0 +1,33 @@
+TASK: Decide whether the material is descriptive, experimental, or normative documentation, and justify your choice.
+
+MATERIAL:
+$oc = Get-Content $out -Raw -ErrorAction SilentlyContinue
+  if ($oc -and $oc -match '\[ Prompt:\s*([\d.]+)\s*t/s\s*\|\s*Generation:\s*([\d.]+)\s*t/s\s*\]') {
+    $r.cli_prompt_ts = [double]$Matches[1]
+    $r.cli_gen_ts    = [double]$Matches[2]
+  }
+}
+
+# ---------------- sampler aggregates ----------------
+if (-not $NoSample -and (Test-Path $sampOut)) {
+  $rows = @(Get-Content $sampOut -ErrorAction SilentlyContinue | Where-Object { $_ -and $_ -notmatch '"_meta"' } | ForEach-Object { try { $_ | ConvertFrom-Json } catch {} })
+  if ($rows.Count -gt 0) {
+    $mem = $rows | Measure-Object -Property mem_used -Maximum -Minimum
+    $r.samples       = $rows.Count
+    $r.vram_idle_mib = $mem.Minimum
+    $r.vram_peak_mib = $mem.Maximum
+    $r.gpu_util_max  = ($rows | Measure-Object -Property gpu_util   -Maximum).Maximum
+    $r.gpu_util_avg  = [math]::Round((($rows | Measure-Object -Property gpu_util -Average).Average), 1)
+    $r.power_max_w   = ($rows | Measure-Object -Property power_w    -Maximum).Maximum
+    $r.power_avg_w   = [math]::Round((($rows | Measure-Object -Property power_w -Average).Average), 1)
+    $r.cpu_pct_avg   = [math]::Round((($rows | Where-Object { $_.cpu_pct -ge 0 } | Measure-Object -Property cpu_pct -Average).Average), 1)
+    $r.cpu_pct_max   = ($rows | Where-Object { $_.cpu_pct -ge 0 } | Measure-Object -Property cpu_pct -Maximum).Maximum
+    $pc = $rows | Where-Object { $null -ne $_.proc_cores } | Measure-Object -Property proc_cores -Maximum -Average
+    $r.proc_cores_max = $pc.Maximum
+    $r.proc_cores_avg = [math]::Round($pc.Average, 2)
+    $cpuLast = ($rows | Where-Object { $null -ne $_.proc_cpu } | Select-Object -Last 1)
+    if ($cpuLast) { $r.proc_cpu_total_s = $cpuLast.proc_cpu }
+  }
+}
+
+# ---------------- emit ----------------

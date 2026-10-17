@@ -1,0 +1,30 @@
+任务: 根据下面材料回答：识别出的瓶颈是什么？有哪些证据支持这一判断？
+
+材料:
+et-FileHash -LiteralPath $Server -Algorithm SHA256
+Get-FileHash -LiteralPath $Model -Algorithm SHA256
+Get-ChildItem -LiteralPath (Split-Path $Server) -Filter '*.dll' |
+    Get-FileHash -Algorithm SHA256
+```
+
+归档内容还应包括：完整命令、相关环境变量、模型 tensor 类型、线程数、实际上下文容量、batch/ubatch、KV 类型、Flash Attention、自动 fit 状态、启动日志及请求原文/token IDs。模型哈希读取会影响文件缓存状态，应在所有冷暖测试之前完成。
+
+```powershell
+function Get-MoeArgs {
+    param(
+        [int]$Nc = 48,
+        [int]$Cache = 0,
+        [ValidateSet('mmap','none')][string]$Load = 'mmap',
+        [int]$Threads = 32,
+        [int]$BatchThreads = 32,
+        [int]$Ctx = 4096,
+        [int]$UBatch = 512,
+        [switch]$CpuExperts
+    )
+
+$a = @(
+        '-m', $Model,
+        '-ngl', '99',
+        '-ncmoe', "$Nc",
+        '--moe-cache-mib', "$Cache",
+        '--load-mode', $Load,

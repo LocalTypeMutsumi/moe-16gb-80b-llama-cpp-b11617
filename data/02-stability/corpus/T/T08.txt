@@ -1,0 +1,31 @@
+TASK: Find every numeric measurement in the material and compute the median and the range of the throughput figures.
+
+MATERIAL:
+# --- scheduler fingerprint (internal scheduling evidence) ---
+        try {
+            $fp = Get-SchedFingerprint -ErrPath $srv.Err
+            if ($fp) {
+                $rec = [ordered]@{ tag=$tag; mask_name=$mk; threads=$thr
+                                   cfg_nc=$combo.Nc; cfg_cache=$combo.Cache }
+                foreach ($p in $fp.PSObject.Properties) { $rec[$p.Name] = $p.Value }
+                ($rec | ConvertTo-Json -Depth 6 -Compress) | Add-Content -LiteralPath $SchedJsonl -Encoding UTF8
+                Log ("  SCHED $tag : tgSplits=$($fp.tg_graph_splits) tgNodes=$($fp.tg_graph_nodes) ppSplits=$($fp.pp_graph_splits) cpuMapped=$($fp.cpu_mapped_total_mib) cudaModel=$($fp.cuda0_model_mib) cudaCompute=$($fp.cuda0_compute_mib) offloaded=$($fp.offloaded_layers)")
+            } else { Log "  SCHED $tag : no fingerprint" }
+        } catch { Log "  SCHED parse failed: $($_.Exception.Message)" }
+        for ($i=1; $i -le $Reps; $i++) {
+            Invoke-CcdReq -Srv $srv -Tag $tag -Nc $combo.Nc -Cache $combo.Cache -Threads $thr -MaskName $mk -Idx $i
+        }
+        if (-not $srv.Proc.HasExited) { try { Stop-Process -Id $srv.Proc.Id -Force } catch {} }
+        Start-Sleep -Seconds 4
+    }
+}
+
+# NEVER blanket-kill llama-server here: every server this script starts is
+# stopped by PID inside the loop. A blanket kill destroys servers owned by
+# other concurrently running experiments.
+Log "=== CCD SWEEP END ==="
+if ($script:iterations -lt 1) { Log "!!! WARNING: matrix executed $($script:iterations) iterations" }
+else { Log "matrix executed $($script:iterations) iterations" }
+
+# ---- summary --------------------------------------------------------------
+try {

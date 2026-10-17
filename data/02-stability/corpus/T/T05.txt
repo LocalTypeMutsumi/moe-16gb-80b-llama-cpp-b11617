@@ -1,0 +1,29 @@
+任务: 阅读下面的脚本片段，说明它的用途，并指出一个具体的风险。
+
+材料:
+未定 | 只有吞吐、CPU 秒、util 或总 PCIe 流量 | 标记 `UNDETERMINED` |
+
+```text
+request_id, phase, layer, expert_tensor, actual_backend,
+actual_microbatch_tokens, cache_hit/miss,
+expert_h2d_bytes, source_buffer_type, destination_buffer_id
+```
+
+| ncmoe | cache | load-mode |
+|---:|---:|---|
+| 48 | 0 | mmap |
+| 48 | 0 | none |
+| 48 | 12288 | mmap |
+| 48 | 12288 | none |
+
+同时记录主存 buffer 类型、工作集、硬缺页、磁盘读取及 host registration/pinned buffer 情况。**`none` 不等于锁页内存，也不等于 CPU 计算；mmap 告警只提示加载/内存路径问题。** 缺少 `offloading N/M layers` 日志也不能证明没有 GPU 运算。
+
+- 提示词实际 token 数：`29、31、32、33、512`。
+- `-ub`：`32、512`。
+- `ncmoe=48`，cache 分别为 `0、12288`。
+- 每种组合生成 32 tokens，分别记录 prefill 与 decode backend。
+- 原始实现的 32-token 门槛只是候选边界，最终以本机构建源码和实际图为准。
+
+| 指标 | 统一定义 |
+|---|---|
+| Prefill 吞吐 | `1000 × prompt_n / prompt_ms` |

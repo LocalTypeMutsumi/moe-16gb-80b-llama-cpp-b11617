@@ -1,0 +1,30 @@
+TASK: Locate the sentence most related to expert caching in the material and quote it exactly.
+
+MATERIAL:
+$om = [regex]::Match($txt, 'load_tensors: offloaded (\d+)/(\d+) layers to GPU'); if ($om.Success) { $offloadLine = "$($om.Groups[1].Value)/$($om.Groups[2].Value)" }
+    $repLayers = $null
+    $rm = [regex]::Match($txt, 'offloading (\d+) repeating layers to GPU'); if ($rm.Success) { $repLayers=[int]$rm.Groups[1].Value }
+    $tensorOverride = ($txt -match 'tensor overrides to CPU are used with mmap')
+
+# --- memory breakdown --------------------------------------------------
+    $breakdown = @()
+    foreach ($bm in [regex]::Matches($txt, 'common_memory_breakdown_print: \|([^\r\n]*)')) { $breakdown += $bm.Groups[1].Value.Trim() }
+
+# --- fused ops ---------------------------------------------------------
+    $fused = @()
+    foreach ($fm in [regex]::Matches($txt, 'resolve_fused_ops: ([^\r\n]*)')) { $fused += $fm.Groups[1].Value.Trim() }
+
+# --- timing lines (per request) ---------------------------------------
+    $timings = @()
+    foreach ($tm in [regex]::Matches($txt, 'prompt eval time =\s*([\d.]+) ms /\s*(\d+) tokens \(\s*([\d.]+) ms per token,\s*([\d.]+) tokens per second\)')) {
+        $timings += [pscustomobject]@{ kind='prefill'; ms=[double]$tm.Groups[1].Value; n=[int]$tm.Groups[2].Value; tps=[double]$tm.Groups[4].Value }
+    }
+    foreach ($tm in [regex]::Matches($txt, 'eval time =\s*([\d.]+) ms /\s*(\d+) tokens \(\s*([\d.]+) ms per token,\s*([\d.]+) tokens per second\)')) {
+        $timings += [pscustomobject]@{ kind='decode'; ms=[double]$tm.Groups[1].Value; n=[int]$tm.Groups[2].Value; tps=[double]$tm.Groups[4].Value }
+    }
+    $graphsReused = @()
+    foreach ($gm in [regex]::Matches($txt, 'graphs reused =\s*(\d+)')) { $graphsReused += [int]$gm.Groups[1].Value }
+
+$o = [ordered]@{
+        tag                 = $tag
+        log_file            = $f.Name

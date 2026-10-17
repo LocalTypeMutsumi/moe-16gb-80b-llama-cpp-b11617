@@ -1,0 +1,30 @@
+TASK: Read the script excerpt below and explain what it does, plus one concrete risk.
+
+MATERIAL:
+decode_ts= if ($tim) { [math]::Round($tim.predicted_per_second,2) } else { $null }
+        t_start=(Get-Date -Format 'HH:mm:ss'); error=$err
+    }
+    ($o | ConvertTo-Json -Depth 6 -Compress) | Add-Content -LiteralPath $Jsonl -Encoding UTF8
+    Log ("  [$Tag] run=$Idx ok=$ok decode=$($o.decode_ts) prefill=$($o.prefill_ts) cpu_s=$cpuSec cores=$($o.avg_cores)")
+}
+
+# ---- scheduler fingerprint ------------------------------------------------
+# Pulls the INTERNAL scheduling structure out of each server's own -lv log.
+# GGML_SCHED_DEBUG has no effect on this build, so sched_reserve is the only
+# scheduler-level evidence available. tg_graph_splits = number of backend
+# hand-offs in the decode graph -- the sharpest known discriminator between
+# "experts computed on CPU" (98) and "experts computed on GPU" (50).
+function Get-SchedFingerprint {
+    param([string]$ErrPath)
+    if (-not (Test-Path $ErrPath)) { return $null }
+    $txt = Get-Content -LiteralPath $ErrPath -Raw
+    $o = [ordered]@{}
+    $g = [regex]::Match($txt, 'sched_reserve: graph \(pp bs=(\d+), tg bs=(\d+)\): nodes = (\d+) / (\d+), splits = (\d+) / (\d+)')
+    if ($g.Success) {
+        $o.pp_graph_nodes  = [int]$g.Groups[3].Value
+        $o.tg_graph_nodes  = [int]$g.Groups[4].Value
+        $o.pp_graph_splits = [int]$g.Groups[5].Value
+        $o.tg_graph_splits = [int]$g.Groups[6].Value
+    }
+    $c = [regex]::Match($txt,'CUDA0 compute buffer size =\s*([\d.]+) MiB'); if ($c.Success) { $o.cuda0_compute_mib = [double]$c.Groups[1].Value }
+    $h = [regex]::Match($txt,'CUDA_Host compute buffer size =\s*([\d.]+) MiB'); if ($h.Success) { $o.cuda_host_compute_mib = [double]$h.Groups[1].Value }

@@ -1,0 +1,41 @@
+TASK: Rewrite the material below as exactly three bullet points suitable for a status update.
+
+MATERIAL:
+f (Test-Path $err) { $lines = Get-Content $err -ErrorAction SilentlyContinue }
+
+function FirstMatch([string]$pattern, [int]$group = 1) {
+  foreach ($l in $lines) {
+    $m = [regex]::Match($l, $pattern)
+    if ($m.Success) { return $m.Groups[$group].Value }
+  }
+  return $null
+}
+
+$r = [ordered]@{}
+$cfg.GetEnumerator() | ForEach-Object { $r[$_.Key] = $_.Value }
+$r.stamp   = $stamp
+$r.affinity_req = $AffinityMask
+$r.affinity     = $affApplied
+$r.wall_s  = $wallS
+
+# model shape
+$r.n_layer   = FirstMatch 'print_info:\s*n_layer\s*=\s*(\d+)'
+$r.n_expert  = FirstMatch 'print_info:\s*n_expert\s*=\s*(\d+)'
+$r.n_expert_used = FirstMatch 'print_info:\s*n_expert_used\s*=\s*(\d+)'
+$r.n_ctx_train   = FirstMatch 'print_info:\s*n_ctx_train\s*=\s*(\d+)'
+
+# throughput. Lines look like:
+#   slot print_timing: id  0 | task 0 | prompt eval time =  2103.80 ms /  23 tokens (  91.47 ms per token,  10.93 tokens per second)
+#   slot print_timing: id  0 | task 0 |        eval time =  3390.98 ms /  24 tokens ( 147.43 ms per token,   6.78 tokens per second)
+# The decode pattern MUST anchor on '| <spaces> eval time' or it will also match the prompt line.
+$r.prefill_ms  = FirstMatch 'prompt eval time\s*=\s*([\d.]+) ms'
+$r.prefill_n   = FirstMatch 'prompt eval time\s*=\s*[\d.]+ ms\s*/\s*(\d+) tokens'
+$r.prefill_ts  = FirstMatch 'prompt eval time\s*=.*?([\d.]+) tokens per second'
+$r.decode_ms   = FirstMatch '\|\s+eval time\s*=\s*([\d.]+) ms'
+$r.decode_n    = FirstMatch '\|\s+eval time\s*=\s*[\d.]+ ms\s*/\s*(\d+) tokens'
+$r.decode_ts   = FirstMatch '\|\s+eval time\s*=.*?([\d.]+) tokens per second'
+$r.load_ms     = FirstMatch 'load time\s*=\s*([\d.]+) ms'
+
+# scheduler fingerprint: the CPU/GPU offload shape
+$sched = $null
+foreach ($l in $lines) {

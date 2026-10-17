@@ -1,0 +1,42 @@
+TASK: Read the material below and summarise its main conclusion in no more than 80 words.
+
+MATERIAL:
+#Requires -Version 5.1
+<#
+CCD-count sweep for MoE expert computation
+==========================================
+Question: on this 4-CCD Threadripper PRO 5975WX (32C/64T, 128 MB L3 total),
+does limiting the process to fewer CCDs change MoE throughput - and does the
+answer depend on WHERE the experts are computed?
+
+Crosses two independent variables:
+  * CPU affinity  : 4 CCD (all) / 2 CCD / 1 CCD
+  * expert location: cache=0    -> experts computed on CPU   (CPU-bound path)
+                     cache=12288-> experts computed on GPU   (tie to -moe-cache-mib)
+
+Windows logical-processor numbering on this box is assumed to be:
+  physical core i  -> logical i  and  logical i+32
+  CCD k            -> physical cores 8k..8k+7
+That assumption is printed and must be sanity-checked from the throughput
+differences; if 1-CCD and 2-CCD look identical something is wrong.
+
+MUST STAY PURE ASCII (PS 5.1 decodes BOM-less .ps1 as GBK).
+#>
+[CmdletBinding()]
+param(
+    [string]$LlamaDir = 'E:\Apps\llama.cpp\b11617',
+    [string]$Model    = 'D:\Models\Ollama\blobs\sha256-58574f2e94b99fb9e4391408b57e5aeaaaec10f6384e9a699fc2cb43a5c8eabf',
+    [string]$OutRoot  = 'F:\UserData\Documents\deepseek-harness\default-workspace\research\moe-heterogeneous\autorun',
+    [int]$Port        = 18081,
+    [int]$Reps        = 8,
+    # minimum free VRAM (MiB) required before starting; guards against running
+    # this while the main full-test still owns the GPU
+    [int]$RequireFreeVram = 14000
+)
+
+$ErrorActionPreference = 'Continue'
+foreach ($k in 'no_proxy','NO_PROXY','http_proxy','HTTP_PROXY','https_proxy','HTTPS_PROXY','all_proxy','ALL_PROXY') {
+    try { [System.Environment]::SetEnvironmentVariable($k, $null, 'Process') } catch {}
+}
+
+$Stamp = Get-Date -Format 'yyyyMMdd-HHmmss'

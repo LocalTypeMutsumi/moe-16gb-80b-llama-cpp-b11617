@@ -1,0 +1,43 @@
+TASK: Extract every metric that looks like 'name = value unit' and output JSON with keys name, value, unit.
+
+MATERIAL:
+* offload lines, tensor-override warnings, fused-op resolution count
+
+MUST STAY PURE ASCII (PS 5.1 decodes BOM-less .ps1 as GBK).
+#>
+[CmdletBinding()]
+param(
+    [Parameter(Mandatory=$true)][string]$LogDir,
+    [string]$OutJsonl
+)
+$ErrorActionPreference = 'Continue'
+
+$files = Get-ChildItem -LiteralPath $LogDir -Filter 'srv_*.err' -File -ErrorAction SilentlyContinue
+if (-not $files) { Write-Output "no srv_*.err in $LogDir"; exit 1 }
+if (-not $OutJsonl) { $OutJsonl = Join-Path $LogDir 'sched_metrics.jsonl' }
+if (Test-Path $OutJsonl) { Remove-Item -LiteralPath $OutJsonl -Force }
+
+$all = @()
+foreach ($f in $files) {
+    $lines = Get-Content -LiteralPath $f.FullName
+    $txt = $lines -join "`n"
+    $tag = $f.BaseName -replace '^srv_',''
+
+# --- model file identity (from the loading line) -----------------------
+    $modelPath = $null
+    $m = [regex]::Match($txt, "loading model '([^']+)'")
+    if ($m.Success) { $modelPath = $m.Groups[1].Value }
+
+# --- sched graph: nodes / splits --------------------------------------
+    $ppNodes=$null; $tgNodes=$null; $ppSplits=$null; $tgSplits=$null; $inputObjects=$null
+    $g = [regex]::Match($txt, 'sched_reserve: graph \(pp bs=(\d+), tg bs=(\d+)\): nodes = (\d+) / (\d+), splits = (\d+) / (\d+)')
+    $ppBatch=$null; $tgBatch=$null
+    if ($g.Success) {
+        $ppBatch=[int]$g.Groups[1].Value; $tgBatch=[int]$g.Groups[2].Value
+        $ppNodes=[int]$g.Groups[3].Value; $tgNodes=[int]$g.Groups[4].Value
+        $ppSplits=[int]$g.Groups[5].Value; $tgSplits=[int]$g.Groups[6].Value
+    }
+    $realloc = [regex]::Matches($txt, 'sched_graph_realloc: graph reallocation: nodes = (\d+) \(changed = (\d+)\), splits = (\d+)')
+
+# --- compute buffers ---------------------------------------------------
+    $cudaCompute=$null; $hostCompute=$null

@@ -1,0 +1,48 @@
+TASK: Using only the material below, infer what would likely happen if the expert cache were enlarged further. State your uncertainty.
+
+MATERIAL:
+oreach ($k in 'no_proxy','NO_PROXY','http_proxy','HTTP_PROXY','https_proxy','HTTPS_PROXY','all_proxy','ALL_PROXY') {
+    try { [System.Environment]::SetEnvironmentVariable($k, $null, 'Process') } catch {}
+}
+
+$Stamp   = Get-Date -Format 'yyyyMMdd-HHmmss'
+$Out     = Join-Path $OutRoot $Stamp
+New-Item -ItemType Directory -Force -Path $Out | Out-Null
+$Jsonl   = Join-Path $Out 'requests.jsonl'
+$SchedJsonl = Join-Path $Out 'sched.jsonl'
+$GpuCsv  = Join-Path $Out 'gpu.csv'
+$PhaseLog= Join-Path $Out 'phases.log'
+$Summary = Join-Path $Out 'SUMMARY.md'
+
+function Log([string]$m) {
+    $line = '{0} {1}' -f (Get-Date -Format 'HH:mm:ss'), $m
+    $line | Tee-Object -FilePath $PhaseLog -Append
+}
+function Write-Jsonl($obj) {
+    ($obj | ConvertTo-Json -Depth 8 -Compress) | Add-Content -LiteralPath $Jsonl -Encoding UTF8
+}
+function Get-Vram {
+    # returns "used,free" in MiB
+    try { (nvidia-smi --query-gpu=memory.used,memory.free --format=csv,noheader,nounits) -join ',' } catch { 'NA,NA' }
+}
+
+# Status breadcrumb so a later session can tell at a glance whether a run is
+# live, finished, or was cut off (a stale RUNNING means interrupted).
+$StatusFile = Join-Path $OutRoot 'STATUS.txt'
+$LatestFile = Join-Path $OutRoot 'LATEST.txt'
+@(
+  "state      : RUNNING"
+  "stamp      : $Stamp"
+  "pid        : $PID"
+  "out_dir    : $Out"
+  "started    : $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
+  "finished   : (still running)"
+) | Out-File -LiteralPath $StatusFile -Encoding UTF8
+"$Out" | Out-File -LiteralPath $LatestFile -Encoding UTF8
+Log "llama dir : $LlamaDir"
+Log "model     : $Model"
+Log "out       : $Out"
+Log "smoke     : $SmokeMinutes min (0 = full run)"
+
+# ----------------------------------------------------------------------------
+# 1. environment freeze / provenance

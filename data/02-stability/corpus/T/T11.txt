@@ -1,0 +1,19 @@
+任务: 在材料中定位与专家缓存最相关的那一句，并原样引用。
+
+材料:
+何通过**细粒度 CPU/GPU 异构推理**与专家缓存调度，在**尽量保留原始语义能力**的前提下
+用 16 GB 显卡带动 18 GB 模型，并优化吞吐与 TTFT。
+
+| 项 | 值 |
+|---|---|
+| CPU | AMD Threadripper PRO 5975WX（Zen 3，32 核 / 64 线程，3.6 GHz） |
+| 内存 | 128 GB = **4 × 32 GB** DDR4-3200 ECC RDIMM |
+| **内存通道** | **只有 4 条，通道 A–D 全空**（主板支持 8 通道）⇒ 理论带宽 **102.4 GB/s** |
+| 内存带宽实测 | 顺序读 **40.5 GB/s**（8 线程饱和） |
+| GPU | RTX 4070 Ti SUPER，**16375 MiB**，驱动 610.88 |
+| PCIe | **Gen 4 ×16**（current = max，无降速） |
+| OS | Windows Server 2025 Datacenter |
+| 推理栈 | llama.cpp **b11617**（CUDA 12.4，`ggml-cuda.dll`） |
+| 模型 | Qwen3-30B-A3B，`qwen3moe`，30.5B 总参 / 3.3B 激活，48 层，128 专家，每 token 激活 8 个，**Q4_K_M，17.28 GiB** |
+| GGUF 源 | `D:\Models\Ollama\blobs\sha256-58574f2e94b99fb9e4391408b57e5aeaaaec10f6384e9a699fc2cb43a5c8eabf` |
+| 断电约束 | **每日 23:30–6:00 断电**，实验必须可中断、可在 1–2 小时窗口内完成 |

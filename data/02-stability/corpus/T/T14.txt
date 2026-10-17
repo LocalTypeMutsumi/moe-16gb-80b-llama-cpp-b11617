@@ -1,0 +1,50 @@
+TASK: These are Chinese technical notes; explain them in English.
+
+MATERIAL:
+probe-run.ps1 - ONE clean measurement point, fully instrumented.
+#
+# Runs a single llama-cli generation while an independent sampler records
+# GPU / CPU / process time series. Parses throughput, MoE cache statistics and
+# the scheduler graph fingerprint from the captured log.
+#
+# Emits one JSON summary line to stdout and writes everything under -OutDir.
+#
+# Pure ASCII (PS 5.1 safe).
+
+param(
+  [Parameter(Mandatory=$true)][string]$Model,
+  [string]$Tag      = 'run',
+  [int]$Ncmoe       = 0,
+  [int]$Cache       = 0,
+  [int]$Ctx         = 4096,
+  [int]$Predict     = 64,
+  [string]$Prompt   = 'Explain briefly why memory bandwidth limits CPU inference of large language models.',
+  [int]$Threads     = 0,
+  [string]$Load     = 'mmap',
+  [int]$LogLevel    = 4,
+  [string]$Extra    = '',
+  [string]$OutDir   = 'D:\Cache\moe-lab\redesign',
+  [string]$AffinityMask = '0',
+  [switch]$NoSample
+)
+
+$ErrorActionPreference = 'Continue'
+$CLI     = 'E:\Apps\llama.cpp\b11617\llama-cli.exe'
+$SAMPLER = Join-Path $PSScriptRoot 'sampler.ps1'
+
+New-Item -ItemType Directory -Force -Path $OutDir | Out-Null
+$stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
+$base  = Join-Path $OutDir ("{0}_{1}" -f $Tag, $stamp)
+
+# prompt via file: avoids every command-line quoting hazard
+$pf = "$base.prompt.txt"
+[IO.File]::WriteAllText($pf, $Prompt, [Text.Encoding]::UTF8)
+
+# ---------------- sampler (independent process) ----------------
+$sp = $null
+if (-not $NoSample) {
+  $sp = Start-Process powershell.exe -ArgumentList '-NoProfile','-ExecutionPolicy','Bypass','-File',$SAMPLER,'-Seconds','1200','-Out',$sampOut,'-ProcName','llama-cli' -PassThru -WindowStyle Hidden
+  Start-Sleep -Seconds 2
+}
+
+# ---------------- build llama-cli arguments ----------------
