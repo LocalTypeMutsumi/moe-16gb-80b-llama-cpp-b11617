@@ -27,3 +27,9 @@ figure,series,x,y,note
 4-real-vs-random,decode_tps,real_text,68.12,50 samples
 4-real-vs-random,decode_tps,random_tokens,93.51,50 samples
 
+
+1b-zoom,V-shape,0,26.806,cache=0 (zoom: 0-2048)
+1b-zoom,V-shape,512,20.414,valley bottom
+1b-zoom,V-shape,1024,30.001,cache=1024
+1b-zoom,V-shape,1536,32.424,cache=1536
+1b-zoom,V-shape,2048,35.788,cache=2048
