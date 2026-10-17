@@ -55,7 +55,7 @@ llama_moe_cache: ubatch <= 8: hits = 0, misses = 808, hit rate = 0.00%, uploaded
 llama_moe_cache: large batches: 3525 experts copied from the cache, 2209.95 MiB
 ```
 
-Perplexity runs go through the **large-batch** path (3525 experts served from cache). Fetching relocates expert weights without changing the arithmetic, which is *consistent with* the observed result — but the output is rounded to 4 decimals, so this is "no change at display precision", not a bit-identical claim. Cache size is not a quality knob here — only a speed knob.
+Perplexity runs go through the **large-batch** path (3525 experts served from cache). Fetching relocates expert weights without changing the arithmetic, which is *consistent with* the observed result — but the output is rounded to 4 decimals, so this is "no change at display precision", not a bit-identical claim. On this workload, and within that measurement window, cache size behaved as a **speed knob, not a quality knob** — a statement about what we measured, not a general guarantee.
 
 > Prior work for comparison: ChaeWoo Son (2026-10) measured **+5.7% PPL for substitution** and **+0.35% for selective fetch** on the same model. Our fetch-only result shows **no change at 4-decimal precision** on 20 chunks, which is consistent with "fetch does not alter numerics" — but it is not a bit-identical claim. Different hardware, different implementation — not a head-to-head.
 
