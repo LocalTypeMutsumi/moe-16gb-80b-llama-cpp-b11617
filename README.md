@@ -1,14 +1,18 @@
-# MoE Expert Caching on a 16 GB Card: 80B MoE at 68–81 t/s, and what it costs in quality
+# MoE Expert Caching on a 16 GB Card: 80B MoE at 67.5–80.7 t/s, and what it costs in quality
+
+> 📄 **Full report: [Discussion #1 · MoE 专家缓存实测](https://github.com/LocalTypeMutsumi/moe-16gb-80b-llama-cpp-b11617/discussions/1)** — v2.0, single-machine exploratory
+> · [DOCX](https://github.com/LocalTypeMutsumi/moe-16gb-80b-llama-cpp-b11617/blob/master/docs/MoE-研究报告-v2.0.docx)
+> · [Markdown](https://github.com/LocalTypeMutsumi/moe-16gb-80b-llama-cpp-b11617/blob/master/docs/discussion-post.md)
 
 Measured on a single RTX 4070 Ti SUPER (16 GB) with Qwen3-Next-80B-A3B-Instruct Q4_K_M (80B total, 3B active) via llama.cpp b11617.
 
 **TL;DR**
 
-- **A bandwidth model fits the data — but it is a hypothesis, not a proven mechanism.** cache=0 lands at **47.0 GB/s** against a measured **48 GB/s** RAM ceiling (97.9% closure). cache=10752 is consistent with being capped by **PCIe 4.0 ×16 (~24.45 GB/s)**, which would imply an ~83% hit rate. **This is circular reasoning**: the hit rate is derived from speed and bandwidth, then used to argue PCIe is saturated. Confirming gen4 x16 only proves the link *configuration*, not that 24.45 GB/s is actually achieved. The 1.75 GB/token figure is also a proportional estimate, not a per-layer ledger. Treat the attribution as an open question.
+- **A bandwidth model fits the data — but it is a hypothesis, not a proven mechanism.** cache=0 lands at **46.9 GB/s** against a back-derived **48 GB/s** RAM reference (97.7% closure). cache=10752 is consistent with being capped by **PCIe 4.0 ×16 (~24.45 GB/s)**, which would imply an ~82.7% hit rate. **This is circular reasoning**: the hit rate is derived from speed and bandwidth, then used to argue PCIe is saturated. Confirming gen4 x16 only proves the link *configuration*, not that 24.45 GB/s is actually achieved. The 1.75 GB/token figure is also a proportional estimate, not a per-layer ledger. Treat the attribution as an open question.
 - **If the PCIe hypothesis holds, it would explain portability**: the ceiling would sit on a hardware constant rather than on the memory subsystem. **This has not been tested on a second machine.**
 - **No perplexity change was observed** at cache = 0 / 512 / 2048 / 10752 MiB (4.4617 ± 0.14700, 20 chunks of WikiText-2, 4-decimal precision). This is **not** a bit-identical claim and does not cover the decode path.
-- **It is very much speed-relevant**: decode goes from 26.8 t/s (cache off) to **80.8 t/s** (cache 10752 MiB) on identical settings.
-- **There is a real valley at small caches**: cache 512 MiB is *slower* than cache 0 (20.4 vs 26.8 t/s, −23.9%).
+- **It is very much speed-relevant**: decode goes from 26.806 t/s (cache off) to **80.673 t/s** (cache 10752 MiB) on identical settings.
+- **There is a real valley at small caches**: cache 512 MiB is *slower* than cache 0 (20.414 vs 26.806 t/s, −23.8%).
 - **`ncmoe` and cache compete for the same VRAM.** On 16 GB, `ncmoe 48` is the only **tested** setting that does not collapse — `ncmoe 44` already drops to 23.6 t/s. Points 45/46/47 were not tested.
 - **"Random tokens" overstate real-input throughput by ~37%** (93.6 vs 68.0 t/s). Do not quote that as real-world speed.
 
