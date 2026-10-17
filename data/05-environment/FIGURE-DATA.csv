@@ -1,0 +1,23 @@
+﻿figure,series,x,y,note
+1-P3-cache-curve,decode_tps,0,26.806,ncmoe=48
+1-P3-cache-curve,decode_tps,512,20.414,ncmoe=48
+1-P3-cache-curve,decode_tps,1024,30.001,ncmoe=48
+1-P3-cache-curve,decode_tps,1536,32.424,ncmoe=48
+1-P3-cache-curve,decode_tps,2048,35.788,ncmoe=48
+1-P3-cache-curve,decode_tps,3072,42.486,ncmoe=48
+1-P3-cache-curve,decode_tps,4096,49.222,ncmoe=48
+1-P3-cache-curve,decode_tps,6144,61.675,ncmoe=48
+1-P3-cache-curve,decode_tps,8192,69.718,ncmoe=48
+1-P3-cache-curve,decode_tps,10752,80.673,ncmoe=48
+2-P2-ncmoe-cliff,decode_tps,48,80.144,cache=10752
+2-P2-ncmoe-cliff,decode_tps,44,23.639,cache=10752
+2-P2-ncmoe-cliff,decode_tps,40,19.547,cache=10752
+2-P2-ncmoe-cliff,decode_tps,36,17.443,cache=10752
+2-P2-ncmoe-cliff,decode_tps,34,15.818,cache=10752
+2-P2-ncmoe-cliff,decode_tps,32,15.108,cache=10752
+3-PPL-4levels,ppl,0,4.4617,20 chunks
+3-PPL-4levels,ppl,512,4.4617,20 chunks
+3-PPL-4levels,ppl,2048,4.4617,20 chunks
+3-PPL-4levels,ppl,10752,4.4617,20 chunks
+4-real-vs-random,decode_tps,real_text,68.12,50 samples
+4-real-vs-random,decode_tps,random_tokens,93.51,50 samples
