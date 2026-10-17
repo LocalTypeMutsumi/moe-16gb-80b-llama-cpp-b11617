@@ -185,6 +185,8 @@ Memory channels and DDR generation matter **much less** in the cache configurati
 | llama.cpp #26432: AMD GTT overflow, 60% drop, no error | AMD GTT | **expert-cache collapse on a 16 GB NVIDIA card: same silent signature (100% util, <90 W, −71%)** |
 | Son used 3090 + 16 GB system RAM | — | **full 16 GB single-card config on 80B with 128 GB RAM, incl. the ncmoe/cache VRAM competition** |
 
+**Repo:** https://github.com/LocalTypeMutsumi/moe-16gb-80b-llama-cpp-b11617
+
 ## Reproduce
 
 Everything is deterministic except speed. Scripts and raw per-run JSON are in `data/` and `tools/`. Each measurement records `prompt_n`, `predicted_n`, `prefill_ms`, `decode_ms`, VRAM peak, GPU util, power, and a before/after baseline drift check.
@@ -204,4 +206,5 @@ The exact commands are in [`data/05-environment/commands.md`](data/05-environmen
 ## License / attribution
 
 Data and scripts here are our own measurements. Prior work is cited, not reproduced. If you use these numbers, cite this repo and note the engine build (b11617) — expert-cache behaviour is version-specific.
+
 

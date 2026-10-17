@@ -1,4 +1,4 @@
-# Reddit r/LocalLLaMA 发帖稿
+﻿# Reddit r/LocalLLaMA 发帖稿
 
 **标题候选（选一个）**
 
@@ -143,6 +143,7 @@ So "tg128 with random tokens" and "one prompt N times" both measure warm-cache c
 
 ## Repo
 
-Raw per-run JSON, telemetry CSVs, scripts, and the perplexity stderr logs are here: **`<GITHUB_URL>`**
+Raw per-run JSON, telemetry CSVs, scripts, and the perplexity stderr logs are here: **`https://github.com/LocalTypeMutsumi/moe-16gb-80b-llama-cpp-b11617`**
 
 Happy to add configs people care about — say the word and I'll run them.
+
