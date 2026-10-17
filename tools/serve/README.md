@@ -5,13 +5,44 @@
 
 ## 用法
 
+参数固化成了**两层**，互不冲突：
+
+### 1. 默认层：用户级环境变量（已设置）
+
+```
+LLAMA_ARG_MOE_CACHE_MIB = 10752
+LLAMA_ARG_N_CPU_MOE     = 48
+```
+
+llama.cpp 支持把任何命令行参数写成 `LLAMA_ARG_<参数名大写>` 的环境变量。
+只要进程环境里有这两项，启动时**不传参数也按它来**——这就是"默认"。
+
+已验证：不传 `--moe-cache-mib`，启动日志照样出现
+
+```
+CUDA0 MoE cache size = 10750.99 MiB for 46224.00 MiB of host experts
+```
+
+⚠️ **Windows 环境变量需要重新登录（或重启）才对新的登录会话生效**。
+设置完成时已经在运行的进程（包括本机正在跑的服务）读不到，属正常。
+
+只设这两项、不设 `LLAMA_ARG_CPU_MASK` / `LLAMA_ARG_THREADS`，是因为掩码和线程数
+会影响**所有**模型；MoE 这两项在没有 MoE 层的模型上会被忽略，没有副作用。
+
+### 2. 即时层：启动脚本（不依赖重启）
+
 ```cmd
 serve-qwen3-next-80b.cmd            :: cache 10752（最优）
 serve-qwen3-next-80b.cmd 8192       :: cache 8192（显存更宽松）
 serve-qwen3-next-80b.cmd 6144 8081  :: 指定 cache 与端口
 ```
 
+命令行参数优先级高于环境变量，所以脚本显式传参时以脚本为准，全局默认不会打架。
+
 启动后：`http://127.0.0.1:8080`
+
+> 注：这套环境变量只对 `E:\Apps\llama.cpp\b11617` 这套运行时有效。
+> LM Studio 自带的是另一个 llama.cpp 分支，是否认 `--moe-cache-mib` 未验证。
 
 ## 固化的参数
 
