@@ -1,4 +1,4 @@
-# MoE Expert Caching on a 16 GB Card: 80B MoE at 68–81 t/s, and what it costs in quality
+﻿# MoE Expert Caching on a 16 GB Card: 80B MoE at 68–81 t/s, and what it costs in quality
 
 Measured on a single RTX 4070 Ti SUPER (16 GB) with Qwen3-Next-80B-A3B-Instruct Q4_K_M (80B total, 3B active) via llama.cpp b11617.
 
@@ -196,6 +196,7 @@ The exact commands are in [`data/05-environment/commands.md`](data/05-environmen
 - Single machine, single model, single quant (Q4_K_M). Not a general claim about MoE caching.
 - PPL uses `--chunks 20` of WikiText-2 test, **not the full test set**.
 - The 10-prompt check (secondary evidence, in `data/06-10prompts/`) scored 8/10 in both arms with 0 pp difference, but only 5/10 outputs were byte-identical — treat as qualitative.
+- **Hit rate is not directly measurable on the speed path.** llama-server does not emit a per-token MoE cache hit-rate line even at -lv 4 (verified). Only llama-perplexity does, and its large-batch path saturates at ~2048 MiB (34668 experts copied at 2048, 4096, 8192 and 10752 — identical), while server decode keeps scaling (35.8 -> 80.8 t/s over the same range). So the decode-side 82.7% in this report is **derived from PCIe bandwidth, not logged**. See `data/08-prepost-v32/P7-hitrate/FINDINGS.md`.
 - Client-side desktop was in use during collection (browser, WeChat). A per-run baseline drift check was added specifically for this; 34/45 runs were VALID (<2% drift), 8 VALID_WITH_NOTE, 3 UNSTABLE (all in the highest-load config).
 
 ---
@@ -203,3 +204,4 @@ The exact commands are in [`data/05-environment/commands.md`](data/05-environmen
 ## License / attribution
 
 Data and scripts here are our own measurements. Prior work is cited, not reproduced. If you use these numbers, cite this repo and note the engine build (b11617) — expert-cache behaviour is version-specific.
+
