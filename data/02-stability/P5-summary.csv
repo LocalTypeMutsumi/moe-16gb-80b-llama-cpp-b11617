@@ -1,4 +1,7 @@
-﻿sample_count,50
+sample_count,50
 real_median_tps,67.96
 random_median_tps,93.62
-note,P5 (v3.2) replicates v3.0 (68.34) within 0.6%; same-prompt repetition reaches 80.9 t/s
+real_median_tps_standard,67.5393
+random_median_tps_standard,93.6068
+note,P5 (v3.2) replicates v3.0 within 0.6%; same-prompt repetition reaches 80.9 t/s
+note_median,The first two medians are UPPER medians (26th of 50 sorted samples). Standard medians (mean of 25th and 26th) are in the *_standard rows and are what the v2.0 report and figure 4 use.

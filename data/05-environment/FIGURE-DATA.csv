@@ -25,8 +25,8 @@ figure,series,x,y,note
 3-PPL-4levels,ppl,512,4.4617,20 chunks
 3-PPL-4levels,ppl,2048,4.4617,20 chunks
 3-PPL-4levels,ppl,10752,4.4617,20 chunks
-4-real-vs-random,decode_tps,real_text,67.96,P5 run median over 50 pairs (B run: 68.35) - source data/02-stability/P5-summary.csv
-4-real-vs-random,decode_tps,random_tokens,93.62,P5 run median over 50 pairs (B run: 93.53) - source data/02-stability/P5-summary.csv
+4-real-vs-random,decode_tps,real_text,67.54,P5 run STANDARD median over 50 samples (B run: 68.12) - see data/02-stability/P5-summary.csv
+4-real-vs-random,decode_tps,random_tokens,93.61,P5 run STANDARD median over 50 samples (B run: 93.51) - see data/02-stability/P5-summary.csv
 
 
 1b-zoom,V-shape,0,26.806,cache=0 (zoom: 0-2048)
