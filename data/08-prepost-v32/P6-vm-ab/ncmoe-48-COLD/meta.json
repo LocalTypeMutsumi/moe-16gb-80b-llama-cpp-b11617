@@ -1,0 +1,19 @@
+﻿{
+    "label":  "ncmoe-48-COLD",
+    "ncmoe":  48,
+    "cache":  10752,
+    "status":  "VALID",
+    "load_s":  21.2,
+    "runs":  3,
+    "ok":  3,
+    "decode_median":  80.267,
+    "decode_min":  79.355,
+    "decode_max":  80.267,
+    "baseline_statuses":  [
+                              "UNSTABLE",
+                              "VALID_WITH_NOTE",
+                              "VALID_WITH_NOTE"
+                          ],
+    "drift_max_abs_pct":  11.09,
+    "finished_at":  "2026-10-17T13:42:06.7937137+08:00"
+}

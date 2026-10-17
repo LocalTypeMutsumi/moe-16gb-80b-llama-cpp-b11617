@@ -1,0 +1,1 @@
+﻿{"label":"ncmoe-10","ncmoe":10,"cache":10752,"run":2,"ok":true,"error":null,"decode_tps":11.194,"prefill_tps":258.012,"prompt_n":435,"predicted_n":256,"client_elapsed_s":24.47,"vram_peak_mib":15773,"gpu_util_max":100,"power_max_w":90.1,"power_min_w":58.49,"temp_max_c":42,"telemetry_samples":50,"telemetry_file":"telemetry/ncmoe-10.seg2.csv"}

@@ -1,0 +1,10 @@
+﻿{"id":"T01_rand","prompt_tokens":517,"decode_tps":93.8317578183932,"prompt_n":517,"predicted_n":256}
+{"id":"T02_rand","prompt_tokens":581,"decode_tps":92.7749759330798,"prompt_n":581,"predicted_n":256}
+{"id":"T03_rand","prompt_tokens":318,"decode_tps":93.4941971268316,"prompt_n":318,"predicted_n":256}
+{"id":"T04_rand","prompt_tokens":658,"decode_tps":92.2197288739971,"prompt_n":658,"predicted_n":256}
+{"id":"T05_rand","prompt_tokens":396,"decode_tps":91.5911099872742,"prompt_n":396,"predicted_n":256}
+{"id":"T06_rand","prompt_tokens":534,"decode_tps":93.840735711368,"prompt_n":534,"predicted_n":256}
+{"id":"T07_rand","prompt_tokens":218,"decode_tps":93.5286259947961,"prompt_n":218,"predicted_n":256}
+{"id":"T08_rand","prompt_tokens":466,"decode_tps":72.8680314229812,"prompt_n":466,"predicted_n":256}
+{"id":"T09_rand","prompt_tokens":549,"decode_tps":84.373247393942,"prompt_n":549,"predicted_n":256}
+{"id":"T10_rand","prompt_tokens":584,"decode_tps":93.5460558414926,"prompt_n":584,"predicted_n":256}

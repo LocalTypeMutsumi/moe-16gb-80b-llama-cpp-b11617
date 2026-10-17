@@ -1,0 +1,90 @@
+﻿{
+    "process":  4,
+    "status":  "VALID",
+    "load_s":  32.5,
+    "port":  9974,
+    "pairs":  [
+                  {
+                      "id":  "T01",
+                      "real_tokens":  517,
+                      "rand_tokens":  517,
+                      "real_tps":  65.534,
+                      "rand_tps":  93.03,
+                      "token_delta":  0
+                  },
+                  {
+                      "id":  "T02",
+                      "real_tokens":  581,
+                      "rand_tokens":  581,
+                      "real_tps":  70.232,
+                      "rand_tps":  93.266,
+                      "token_delta":  0
+                  },
+                  {
+                      "id":  "T03",
+                      "real_tokens":  318,
+                      "rand_tokens":  318,
+                      "real_tps":  70.761,
+                      "rand_tps":  95.561,
+                      "token_delta":  0
+                  },
+                  {
+                      "id":  "T04",
+                      "real_tokens":  658,
+                      "rand_tokens":  658,
+                      "real_tps":  64.167,
+                      "rand_tps":  74.274,
+                      "token_delta":  0
+                  },
+                  {
+                      "id":  "T05",
+                      "real_tokens":  396,
+                      "rand_tokens":  396,
+                      "real_tps":  72.793,
+                      "rand_tps":  93.311,
+                      "token_delta":  0
+                  },
+                  {
+                      "id":  "T06",
+                      "real_tokens":  534,
+                      "rand_tokens":  534,
+                      "real_tps":  66.052,
+                      "rand_tps":  93.226,
+                      "token_delta":  0
+                  },
+                  {
+                      "id":  "T07",
+                      "real_tokens":  218,
+                      "rand_tokens":  218,
+                      "real_tps":  65.117,
+                      "rand_tps":  93.319,
+                      "token_delta":  0
+                  },
+                  {
+                      "id":  "T08",
+                      "real_tokens":  466,
+                      "rand_tokens":  466,
+                      "real_tps":  67.998,
+                      "rand_tps":  93.234,
+                      "token_delta":  0
+                  },
+                  {
+                      "id":  "T09",
+                      "real_tokens":  549,
+                      "rand_tokens":  549,
+                      "real_tps":  73.282,
+                      "rand_tps":  97.559,
+                      "token_delta":  0
+                  },
+                  {
+                      "id":  "T10",
+                      "real_tokens":  584,
+                      "rand_tokens":  584,
+                      "real_tps":  64.242,
+                      "rand_tps":  96.129,
+                      "token_delta":  0
+                  }
+              ],
+    "token_alignment_ok":  true,
+    "finished_at":  "2026-10-17T13:27:37.6804116+08:00"
+}

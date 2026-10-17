@@ -1,0 +1,13 @@
+﻿{
+    "label":  "cache-2048",
+    "ncmoe":  20,
+    "cache":  2048,
+    "status":  "VALID",
+    "load_s":  33.3,
+    "runs":  3,
+    "ok":  3,
+    "decode_median":  12.458,
+    "decode_min":  12.437,
+    "decode_max":  12.458,
+    "finished_at":  "2026-10-17T11:56:48.2073746+08:00"
+}

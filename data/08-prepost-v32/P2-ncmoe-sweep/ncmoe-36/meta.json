@@ -1,0 +1,19 @@
+﻿{
+    "label":  "ncmoe-36",
+    "ncmoe":  36,
+    "cache":  10752,
+    "status":  "VALID",
+    "load_s":  39.8,
+    "runs":  3,
+    "ok":  3,
+    "decode_median":  17.45,
+    "decode_min":  17.437,
+    "decode_max":  17.45,
+    "baseline_statuses":  [
+                              "VALID_WITH_NOTE",
+                              "VALID_WITH_NOTE",
+                              "VALID_WITH_NOTE"
+                          ],
+    "drift_max_abs_pct":  3.38,
+    "finished_at":  "2026-10-17T12:49:46.0681485+08:00"
+}

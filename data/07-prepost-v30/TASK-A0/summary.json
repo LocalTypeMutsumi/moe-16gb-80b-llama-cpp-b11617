@@ -1,0 +1,45 @@
+﻿{
+    "task":  "A0",
+    "purpose":  "teacher-forced perplexity: cache=0 vs cache=10752. This is the PRIMARY quality evidence per the handoff pack.",
+    "command_template":  "llama-perplexity -m \u003cmodel\u003e -f wiki.test.raw -c 512 --chunks 20 -ngl 99 -ncmoe 48 -lm none --moe-cache-mib \u003cN\u003e",
+    "corpus":  {
+                   "file":  "corpus/wikitext-2-raw/wiki.test.raw",
+                   "sha256":  "173C87A53759E0201F33E0CCF978E510C2042D7F2CB78229D9A50D79B9E7DD08",
+                   "ctx":  512,
+                   "chunks":  20
+               },
+    "result":  {
+                   "ppl_cache0":  {
+                                      "mean":  4.4617,
+                                      "stderr":  0.147,
+                                      "elapsed_s":  70,
+                                      "log":  "perplexity-cache0.err"
+                                  },
+                   "ppl_cache10752":  {
+                                          "mean":  4.4617,
+                                          "stderr":  0.147,
+                                          "elapsed_s":  60,
+                                          "log":  "perplexity-cache10752.err"
+                                      },
+                   "relative_diff_pct":  0,
+                   "verdict":  "PASS (\u003c0.5% =\u003e lossless, publishable)"
+               },
+    "cache_engagement_evidence":  {
+                                      "confirmed":  true,
+                                      "cache_size_lines":  [
+                                                               "0.30.081.888 I impl:      CUDA0 MoE cache size = 10750.99 MiB for 46224.00 MiB of host experts"
+                                                           ],
+                                      "hit_rate_lines":  [
+                                                             "0.33.164.815 I llama_moe_cache: ubatch \u003c= 8: hits = 0, misses = 808, hit rate = 0.00%, uploaded = 1520.77 MiB",
+                                                             "0.33.164.823 I llama_moe_cache: large batches: 3525 experts copied from the cache, 2209.95 MiB"
+                                                         ],
+                                      "finding":  "IMPORTANT: b11617 DOES emit llama_moe_cache hit-rate lines under llama-perplexity (TRAND-01 concluded \"no hit-rate logs\" from server runs only). Under perplexity the small-batch path shows hits=0/misses=808 (0.00%) while the large-batch path copied 3525 experts from cache -- i.e. PPL runs are served by the large-batch path.",
+                                      "why_ppl_identical":  "fetch-only caching relocates expert weights but does not change the arithmetic, so perplexity is bit-identical. Identical PPL is therefore expected, not evidence of a disabled cache."
+                                  },
+    "reference":  "Son 2026-10-05: substitution +5.7% ppl; selective fetch +0.35%. Our fetch-only measures 0.0000%.",
+    "caveats":  [
+                    "threads defaulted to 32 because the handoff command did not pass -t; speed comparisons across tasks must not be mixed",
+                    "only 20 of the full wikitext-2 test chunks were processed (time-bounded by the handoff pack); PPL is chunk-bounded, not the full test-set number",
+                    "CPU Tctl not readable on this host (no ACPI thermal zone, no HWiNFO); the \u003e=95C abort criterion could not be enforced"
+                ]
+}

@@ -1,0 +1,165 @@
+{
+  "arms": {
+    "A1-cache0": {
+      "total": 10,
+      "correct": 8,
+      "accuracy": 0.8,
+      "detail": [
+        {
+          "id": "GSM-0",
+          "kind": "gsm",
+          "ok": true,
+          "why": "cand=18 gold=18",
+          "output_head": " dollars.\n\nLet's solve this step by step.\n\n1. **Total eggs laid per day**:  \n   Janet's ducks lay **16 eggs per day**.\n\n2. **Eggs used for breakfast**:  \n   She eats **3 eggs** for breakfast every mor"
+        },
+        {
+          "id": "GSM-1",
+          "kind": "gsm",
+          "ok": true,
+          "why": "cand=3 gold=3",
+          "output_head": " bolts.\n\nWe are told that a robe takes:\n\n- **2 bolts of blue fiber**\n- **Half that much white fiber**\n\nFirst, let’s find out how much white fiber is needed.\n\n> \"Half that much\" refers to half of the a"
+        },
+        {
+          "id": "GSM-2",
+          "kind": "gsm",
+          "ok": false,
+          "why": "no #### found",
+          "output_head": " Let's solve this step by step.\n\n---\n\n**Step 1: Determine the total amount Josh invested.**\n\nJosh buys the house for **$80,000** and spends **$50,000** on repairs.\n\nSo, total investment = purchase pri"
+        },
+        {
+          "id": "GSM-3",
+          "kind": "gsm",
+          "ok": true,
+          "why": "cand=540 gold=540",
+          "output_head": " meters.\n\nLet's solve this step by step.\n\n1. **Number of sprints per session**:  \n   James runs **3 sprints** each time he trains.\n\n2. **Distance per sprint**:  \n   Each sprint is **60 meters**.\n\n3. *"
+        },
+        {
+          "id": "HumanEval-0",
+          "kind": "code",
+          "ok": true,
+          "why": "check() passed",
+          "output_head": "\n    for i in range(len(numbers)):\n        for j in range(i + 1, len(numbers)):\n            if abs(numbers[i] - numbers[j]) < threshold:\n                return True\n    return False\n\n# Example usage"
+        },
+        {
+          "id": "HumanEval-1",
+          "kind": "code",
+          "ok": true,
+          "why": "check() passed",
+          "output_head": "\n    # Remove spaces from the input string\n    paren_string = paren_string.replace(' ', '')\n\n    # Initialize variables\n    result = []\n    current_group = ''\n    open_count = 0\n\n    # Iterate through"
+        },
+        {
+          "id": "HumanEval-2",
+          "kind": "code",
+          "ok": false,
+          "why": "SyntaxError: invalid character '×' (U+00D7) (<candidate>, line 21)",
+          "output_head": "\n    return number % 1.0\n\n# Test the function\nprint(truncate_number(3.5))  # Expected output: 0.5\n```\n\nThis function works by using the modulo operator (`%`) with `1.0`. The modulo operation returns t"
+        },
+        {
+          "id": "HumanEval-3",
+          "kind": "code",
+          "ok": true,
+          "why": "check() passed",
+          "output_head": "\n    balance = 0\n\n    for op in operations:\n        balance += op\n        if balance < 0:\n            return True\n\n    return False\n\n# Test the function with the provided examples\nprint(below_zero([1,"
+        },
+        {
+          "id": "MMLU-CS",
+          "kind": "mmlu",
+          "ok": true,
+          "why": "cand=A gold=A",
+          "output_head": " A\n\nThe access matrix approach to protection has the difficulty that the matrix, if stored directly, is large and can be clumsy to manage. This is because the matrix can become very large in systems w"
+        },
+        {
+          "id": "MMLU-PHY",
+          "kind": "mmlu",
+          "ok": true,
+          "why": "cand=B gold=B",
+          "output_head": " B) 0.01 C\n\nExplanation:  \nThe charge $ Q $ on a capacitor is given by the formula:\n\n$$\nQ = C \\cdot V\n$$\n\nWhere:  \n- $ C = 2 \\, \\text{mF} = 2 \\times 10^{-3} \\, \\text{F} $  \n- $ V = 5 \\, \\text{V} $\n\nSo"
+        }
+      ]
+    },
+    "A2-cache10752": {
+      "total": 10,
+      "correct": 8,
+      "accuracy": 0.8,
+      "detail": [
+        {
+          "id": "GSM-0",
+          "kind": "gsm",
+          "ok": true,
+          "why": "cand=18 gold=18",
+          "output_head": " dollars.\n\nLet's solve this step by step.\n\n1. **Total eggs laid per day**:  \n   Janet's ducks lay **16 eggs per day**.\n\n2. **Eggs used for breakfast**:  \n   She eats **3 eggs** for breakfast every mor"
+        },
+        {
+          "id": "GSM-1",
+          "kind": "gsm",
+          "ok": true,
+          "why": "cand=3 gold=3",
+          "output_head": " bolts.\n\nWe are told that a robe takes:\n\n- **2 bolts of blue fiber**\n- **Half that much white fiber**\n\nFirst, determine how much white fiber is needed:\n\n> Half of 2 bolts = $ \\frac{1}{2} \\times 2 = 1 "
+        },
+        {
+          "id": "GSM-2",
+          "kind": "gsm",
+          "ok": false,
+          "why": "no #### found",
+          "output_head": " Let's solve this step by step.\n\n---\n\n### Step 1: Determine the total amount Josh invested.\n\nJosh buys the house for **$80,000** and spends **$50,000** on repairs.\n\nSo, total investment = purchase pri"
+        },
+        {
+          "id": "GSM-3",
+          "kind": "gsm",
+          "ok": true,
+          "why": "cand=540 gold=540",
+          "output_head": " meters.\n\nLet's solve this step by step.\n\n1. **Number of sprints per session**:  \n   James runs **3 sprints** each time he trains.\n\n2. **Distance per sprint**:  \n   Each sprint is **60 meters**.\n\n3. *"
+        },
+        {
+          "id": "HumanEval-0",
+          "kind": "code",
+          "ok": true,
+          "why": "check() passed",
+          "output_head": "\n    for i in range(len(numbers)):\n        for j in range(i + 1, len(numbers)):\n            if abs(numbers[i] - numbers[j]) < threshold:\n                return True\n    return False\n\n# Example usage"
+        },
+        {
+          "id": "HumanEval-1",
+          "kind": "code",
+          "ok": true,
+          "why": "check() passed",
+          "output_head": "\n    # Remove spaces from the input string\n    paren_string = paren_string.replace(' ', '')\n\n    # Initialize variables\n    result = []\n    current_group = ''\n    open_count = 0\n\n    # Iterate through"
+        },
+        {
+          "id": "HumanEval-2",
+          "kind": "code",
+          "ok": false,
+          "why": "SyntaxError: unterminated string literal (detected at line 20) (<candidate>, line 20)",
+          "output_head": "\n    return number % 1.0\n\n# Test the function\nprint(truncate_number(3.5))  # Output: 0.5\n```\n\nThis function works by using the modulo operator (`%`) with `1.0`. The modulo operation returns the remain"
+        },
+        {
+          "id": "HumanEval-3",
+          "kind": "code",
+          "ok": true,
+          "why": "check() passed",
+          "output_head": "\n    balance = 0\n\n    for op in operations:\n        balance += op\n        if balance < 0:\n            return True\n\n    return False\n\n\nMETADATA = { 'author': 'jt', 'dataset': 'test' } "
+        },
+        {
+          "id": "MMLU-CS",
+          "kind": "mmlu",
+          "ok": true,
+          "why": "cand=A gold=A",
+          "output_head": " A\n\nThe access matrix approach to protection has the difficulty that the matrix, if stored directly, is large and can be clumsy to manage. This is because the matrix can become very large in systems w"
+        },
+        {
+          "id": "MMLU-PHY",
+          "kind": "mmlu",
+          "ok": true,
+          "why": "cand=B gold=B",
+          "output_head": " B) 0.01 C\n\nThe charge \\( Q \\) on a capacitor is given by the formula:\n\n\\[\nQ = C \\cdot V\n\\]\n\nWhere:\n- \\( C = 2 \\, \\text{mF} = 2 \\times 10^{-3} \\, \\text{F} \\)\n- \\( V = 5 \\, \\text{V} \\)\n\nSubstitute the "
+        }
+      ]
+    }
+  },
+  "generated_at": "2026-10-17T12:07:02.985223",
+  "consistency": {
+    "identical_outputs": 5,
+    "of": 10
+  },
+  "accuracy_diff_pp": 0.0,
+  "verdict": "DEGRADED (A0 perplexity is authoritative if they conflict)"
+}

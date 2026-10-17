@@ -1,0 +1,13 @@
+﻿{
+    "label":  "ncmoe-11",
+    "ncmoe":  11,
+    "cache":  10752,
+    "status":  "VALID",
+    "load_s":  41.5,
+    "runs":  3,
+    "ok":  3,
+    "decode_median":  11.998,
+    "decode_min":  11.399,
+    "decode_max":  11.998,
+    "finished_at":  "2026-10-17T11:50:45.8229086+08:00"
+}

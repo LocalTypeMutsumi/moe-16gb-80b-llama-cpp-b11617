@@ -1,0 +1,33 @@
+﻿{
+    "captured_at":  "2026-10-17T13:18:10.0832580+08:00",
+    "cmd_template":  "llama-perplexity -m \u003cmodel\u003e -f wiki.test.raw -c 512 --chunks 20 -ngl 99 -ncmoe 48 -lm none --moe-cache-mib \u003cN\u003e",
+    "results":  [
+                    {
+                        "cache":  0,
+                        "ppl":  4.4617,
+                        "stderr":  0.147,
+                        "log":  "ppl-cache0.err"
+                    },
+                    {
+                        "cache":  512,
+                        "ppl":  4.4617,
+                        "stderr":  0.147,
+                        "log":  "ppl-cache512.err"
+                    },
+                    {
+                        "cache":  2048,
+                        "ppl":  4.4617,
+                        "stderr":  0.147,
+                        "log":  "ppl-cache2048.err"
+                    },
+                    {
+                        "cache":  10752,
+                        "ppl":  4.4617,
+                        "stderr":  0.147,
+                        "log":  "ppl-cache10752.err"
+                    }
+                ],
+    "all_identical":  true,
+    "max_abs_diff":  0,
+    "verdict":  "PASS: cache size has no effect on perplexity (all 4 identical)"
+}

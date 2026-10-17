@@ -1,0 +1,52 @@
+﻿[
+    {
+        "label":  "cache-0",
+        "ncmoe":  48,
+        "cache":  0
+    },
+    {
+        "label":  "cache-512",
+        "ncmoe":  48,
+        "cache":  512
+    },
+    {
+        "label":  "cache-1024",
+        "ncmoe":  48,
+        "cache":  1024
+    },
+    {
+        "label":  "cache-1536",
+        "ncmoe":  48,
+        "cache":  1536
+    },
+    {
+        "label":  "cache-2048",
+        "ncmoe":  48,
+        "cache":  2048
+    },
+    {
+        "label":  "cache-3072",
+        "ncmoe":  48,
+        "cache":  3072
+    },
+    {
+        "label":  "cache-4096",
+        "ncmoe":  48,
+        "cache":  4096
+    },
+    {
+        "label":  "cache-6144",
+        "ncmoe":  48,
+        "cache":  6144
+    },
+    {
+        "label":  "cache-8192",
+        "ncmoe":  48,
+        "cache":  8192
+    },
+    {
+        "label":  "cache-10752",
+        "ncmoe":  48,
+        "cache":  10752
+    }
+]

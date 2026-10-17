@@ -1,0 +1,19 @@
+﻿{
+    "label":  "cache-6144",
+    "ncmoe":  48,
+    "cache":  6144,
+    "status":  "VALID",
+    "load_s":  34.9,
+    "runs":  3,
+    "ok":  3,
+    "decode_median":  61.763,
+    "decode_min":  61.631,
+    "decode_max":  61.763,
+    "baseline_statuses":  [
+                              "VALID_WITH_NOTE",
+                              "VALID",
+                              "VALID"
+                          ],
+    "drift_max_abs_pct":  3.52,
+    "finished_at":  "2026-10-17T13:09:40.4129712+08:00"
+}

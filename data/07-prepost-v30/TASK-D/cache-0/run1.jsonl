@@ -1,0 +1,1 @@
+﻿{"label":"cache-0","ncmoe":20,"cache":0,"run":1,"ok":true,"error":null,"decode_tps":14.971,"prefill_tps":112.076,"prompt_n":435,"predicted_n":256,"client_elapsed_s":20.94,"vram_peak_mib":15817,"gpu_util_max":100,"power_max_w":78.21,"power_min_w":25.85,"temp_max_c":48,"telemetry_samples":43,"telemetry_file":"telemetry/cache-0.seg1.csv"}
