@@ -1,0 +1,65 @@
+=== process 1 (range 1..5)  port 9971  start 11:27:33 ===
+p1: ready in 31.7s
+  T01    real   517 tok   66.75 t/s | rand   517 tok   98.08 t/s | delta 0
+  T02    real   581 tok   70.97 t/s | rand   581 tok   97.18 t/s | delta 0
+  T03    real   318 tok   72.16 t/s | rand   318 tok   98.25 t/s | delta 0
+  T04    real   658 tok   65.57 t/s | rand   658 tok   71.60 t/s | delta 0
+  T05    real   396 tok   74.66 t/s | rand   396 tok   93.19 t/s | delta 0
+  T06    real   534 tok   68.34 t/s | rand   534 tok   91.29 t/s | delta 0
+  T07    real   218 tok   66.45 t/s | rand   218 tok   98.79 t/s | delta 0
+  T08    real   466 tok   69.56 t/s | rand   466 tok   96.98 t/s | delta 0
+  T09    real   549 tok   74.70 t/s | rand   549 tok   72.62 t/s | delta 0
+  T10    real   584 tok   65.14 t/s | rand   584 tok   98.36 t/s | delta 0
+=== process 2 (range 1..5)  port 9972  start 11:29:49 ===
+p2: ready in 30.9s
+  T01    real   517 tok   66.78 t/s | rand   517 tok   98.01 t/s | delta 0
+  T02    real   581 tok   71.62 t/s | rand   581 tok   95.05 t/s | delta 0
+  T03    real   318 tok   72.14 t/s | rand   318 tok   75.65 t/s | delta 0
+  T04    real   658 tok   65.74 t/s | rand   658 tok   88.08 t/s | delta 0
+  T05    real   396 tok   74.39 t/s | rand   396 tok   78.09 t/s | delta 0
+  T06    real   534 tok   68.43 t/s | rand   534 tok   98.02 t/s | delta 0
+  T07    real   218 tok   66.46 t/s | rand   218 tok   66.58 t/s | delta 0
+  T08    real   466 tok   70.64 t/s | rand   466 tok   96.36 t/s | delta 0
+  T09    real   549 tok   74.65 t/s | rand   549 tok   69.14 t/s | delta 0
+  T10    real   584 tok   65.14 t/s | rand   584 tok   97.02 t/s | delta 0
+=== process 3 (range 1..5)  port 9973  start 11:32:06 ===
+p3: ready in 30.9s
+  T01    real   517 tok   66.15 t/s | rand   517 tok   84.77 t/s | delta 0
+  T02    real   581 tok   69.72 t/s | rand   581 tok   93.69 t/s | delta 0
+  T03    real   318 tok   69.69 t/s | rand   318 tok   71.26 t/s | delta 0
+  T04    real   658 tok   66.15 t/s | rand   658 tok   96.22 t/s | delta 0
+  T05    real   396 tok   74.28 t/s | rand   396 tok   96.68 t/s | delta 0
+  T06    real   534 tok   67.89 t/s | rand   534 tok   97.28 t/s | delta 0
+  T07    real   218 tok   66.32 t/s | rand   218 tok   97.20 t/s | delta 0
+  T08    real   466 tok   69.29 t/s | rand   466 tok   88.80 t/s | delta 0
+  T09    real   549 tok   74.54 t/s | rand   549 tok   94.24 t/s | delta 0
+  T10    real   584 tok   62.95 t/s | rand   584 tok   94.93 t/s | delta 0
+=== process 4 (range 1..5)  port 9974  start 11:34:21 ===
+p4: ready in 31.7s
+  T01    real   517 tok   65.05 t/s | rand   517 tok   92.82 t/s | delta 0
+  T02    real   581 tok   70.50 t/s | rand   581 tok   93.61 t/s | delta 0
+  T03    real   318 tok   71.12 t/s | rand   318 tok   93.43 t/s | delta 0
+  T04    real   658 tok   63.65 t/s | rand   658 tok   71.98 t/s | delta 0
+  T05    real   396 tok   70.72 t/s | rand   396 tok   91.53 t/s | delta 0
+  T06    real   534 tok   65.51 t/s | rand   534 tok   91.51 t/s | delta 0
+  T07    real   218 tok   64.01 t/s | rand   218 tok   89.42 t/s | delta 0
+  T08    real   466 tok   67.20 t/s | rand   466 tok   91.98 t/s | delta 0
+  T09    real   549 tok   72.37 t/s | rand   549 tok   93.74 t/s | delta 0
+  T10    real   584 tok   63.39 t/s | rand   584 tok   93.82 t/s | delta 0
+=== process 5 (range 1..5)  port 9975  start 11:36:38 ===
+p5: ready in 30.9s
+  T01    real   517 tok   64.78 t/s | rand   517 tok   93.83 t/s | delta 0
+  T02    real   581 tok   69.33 t/s | rand   581 tok   92.77 t/s | delta 0
+  T03    real   318 tok   69.93 t/s | rand   318 tok   93.49 t/s | delta 0
+  T04    real   658 tok   63.71 t/s | rand   658 tok   92.22 t/s | delta 0
+  T05    real   396 tok   72.15 t/s | rand   396 tok   91.59 t/s | delta 0
+  T06    real   534 tok   66.37 t/s | rand   534 tok   93.84 t/s | delta 0
+  T07    real   218 tok   64.27 t/s | rand   218 tok   93.53 t/s | delta 0
+  T08    real   466 tok   66.58 t/s | rand   466 tok   72.87 t/s | delta 0
+  T09    real   549 tok   73.57 t/s | rand   549 tok   84.37 t/s | delta 0
+  T10    real   584 tok   63.36 t/s | rand   584 tok   93.55 t/s | delta 0
+
+real   median 68.35 t/s over 50 samples
+random median 93.53 t/s over 50 samples
+diff: 5.8%
+done at 11:38:54

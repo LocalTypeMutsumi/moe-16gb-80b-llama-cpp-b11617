@@ -1,0 +1,4 @@
+﻿sample_count,50
+real_median_tps,67.96
+random_median_tps,93.62
+note,P5 (v3.2) replicates v3.0 (68.34) within 0.6%; same-prompt repetition reaches 80.9 t/s

@@ -1,0 +1,62 @@
+=== cache-0  ncmoe=48 cache=0  start 12:56:51 ===
+cache-0: ready in 39s
+  run1: decode   26.785 t/s | vram 3503 | util 99% | power 40.1-88.8 W | drift 0.44% [VALID]
+  run2: decode   26.806 t/s | vram 3502 | util 99% | power 38.98-91.64 W | drift 0.17% [VALID]
+  run3: decode   26.842 t/s | vram 3502 | util 99% | power 39.58-88.03 W | drift -0.07% [VALID]
+=== cache-512  ncmoe=48 cache=512  start 12:58:41 ===
+cache-512: ready in 35.8s
+  run1: decode   20.417 t/s | vram 4079 | util 99% | power 75.47-94.2 W | drift 0.26% [VALID]
+  run2: decode   20.406 t/s | vram 4079 | util 99% | power 75.08-95.89 W | drift -0.03% [VALID]
+  run3: decode   20.414 t/s | vram 4079 | util 99% | power 73.46-96.43 W | drift 0.11% [VALID]
+=== cache-1024  ncmoe=48 cache=1024  start 13:00:47 ===
+cache-1024: ready in 34.9s
+  run1: decode   29.997 t/s | vram 4672 | util 94% | power 76.85-99.97 W | drift 0.32% [VALID]
+  run2: decode   30.005 t/s | vram 4672 | util 94% | power 76.45-99.94 W | drift 1.84% [VALID]
+  run3: decode   30.001 t/s | vram 4654 | util 94% | power 76.7-100.94 W | drift -0.06% [VALID]
+=== cache-1536  ncmoe=48 cache=1536  start 13:02:29 ===
+cache-1536: ready in 34.9s
+  run1: decode   32.424 t/s | vram 5160 | util 94% | power 76.05-102.89 W | drift 0.53% [VALID]
+  run2: decode   32.433 t/s | vram 5151 | util 94% | power 76.93-103.53 W | drift 0.06% [VALID]
+  run3: decode   32.414 t/s | vram 5250 | util 94% | power 78.05-104.56 W | drift 0.59% [VALID]
+=== cache-2048  ncmoe=48 cache=2048  start 13:04:07 ===
+cache-2048: ready in 34.9s
+  run1: decode   35.764 t/s | vram 5687 | util 93% | power 77.64-109.72 W | drift 0.39% [VALID]
+  run2: decode   35.811 t/s | vram 5677 | util 93% | power 81.04-110.21 W | drift 0.01% [VALID]
+  run3: decode   35.788 t/s | vram 5682 | util 93% | power 81.98-111.6 W | drift 0.17% [VALID]
+=== cache-3072  ncmoe=48 cache=3072  start 13:05:40 ===
+cache-3072: ready in 34.1s
+  run1: decode   42.486 t/s | vram 6688 | util 92% | power 79.2-114.73 W | drift 0.72% [VALID]
+  run2: decode   42.455 t/s | vram 6681 | util 95% | power 82.2-114.54 W | drift -0.04% [VALID]
+  run3: decode   42.497 t/s | vram 6686 | util 92% | power 79.66-114.86 W | drift 0.33% [VALID]
+=== cache-4096  ncmoe=48 cache=4096  start 13:07:06 ===
+cache-4096: ready in 34.9s
+  run1: decode   49.254 t/s | vram 7727 | util 92% | power 76.29-121.14 W | drift 0.97% [VALID]
+  run2: decode   49.222 t/s | vram 7732 | util 91% | power 77.17-121.2 W | drift 0.2% [VALID]
+  run3: decode   49.192 t/s | vram 7732 | util 88% | power 78.74-120.71 W | drift -0.19% [VALID]
+=== cache-6144  ncmoe=48 cache=6144  start 13:08:27 ===
+cache-6144: ready in 34.9s
+  run1: decode   61.763 t/s | vram 9785 | util 90% | power 80.26-136.38 W | drift 3.52% [VALID_WITH_NOTE]
+  run2: decode   61.631 t/s | vram 9796 | util 90% | power 76.47-137.39 W | drift -0.48% [VALID]
+  run3: decode   61.675 t/s | vram 9801 | util 91% | power 78.11-138.43 W | drift -0.98% [VALID]
+=== cache-8192  ncmoe=48 cache=8192  start 13:09:42 ===
+cache-8192: ready in 34.9s
+  run1: decode   69.838 t/s | vram 12325 | util 86% | power 79.75-145.19 W | drift 3.82% [VALID_WITH_NOTE]
+  run2: decode    68.08 t/s | vram 12485 | util 87% | power 80.06-145.01 W | drift -3.21% [VALID_WITH_NOTE]
+  run3: decode   69.718 t/s | vram 12128 | util 88% | power 81.78-146.17 W | drift 2.94% [VALID_WITH_NOTE]
+=== cache-10752  ncmoe=48 cache=10752  start 13:10:56 ===
+cache-10752: ready in 34.9s
+  run1: decode   80.673 t/s | vram 14749 | util 86% | power 81.63-161.86 W | drift 10.43% [UNSTABLE]
+  run2: decode   79.471 t/s | vram 14814 | util 86% | power 81.99-162.65 W | drift -3.66% [VALID_WITH_NOTE]
+  run3: decode   80.809 t/s | vram 14772 | util 87% | power 81.23-163.1 W | drift -1.84% [VALID]
+
+cache-0      ncmoe=48  cache=0      median=26.842 [26.785-26.842] status=VALID
+cache-512    ncmoe=48  cache=512    median=20.417 [20.406-20.417] status=VALID
+cache-1024   ncmoe=48  cache=1024   median=30.005 [29.997-30.005] status=VALID
+cache-1536   ncmoe=48  cache=1536   median=32.433 [32.414-32.433] status=VALID
+cache-2048   ncmoe=48  cache=2048   median=35.811 [35.764-35.811] status=VALID
+cache-3072   ncmoe=48  cache=3072   median=42.497 [42.455-42.497] status=VALID
+cache-4096   ncmoe=48  cache=4096   median=49.254 [49.192-49.254] status=VALID
+cache-6144   ncmoe=48  cache=6144   median=61.763 [61.631-61.763] status=VALID
+cache-8192   ncmoe=48  cache=8192   median=69.838 [68.08-69.838] status=VALID
+cache-10752  ncmoe=48  cache=10752  median=80.809 [79.471-80.809] status=VALID
+done at 13:12:06

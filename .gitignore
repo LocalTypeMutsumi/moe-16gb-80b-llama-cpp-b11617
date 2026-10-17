@@ -1,0 +1,5 @@
+﻿*.log.prev
+_batch-*.log
+_run.log
+_run.err
+_*.pid

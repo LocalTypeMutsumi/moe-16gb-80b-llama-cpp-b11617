@@ -1,0 +1,103 @@
+﻿{
+    "captured_at":  "2026-10-17T11:20:06.4562819+08:00",
+    "gpu":  {
+                "name":  "NVIDIA GeForce RTX 4070 Ti SUPER",
+                "vram_total_mib":  "16376",
+                "driver":  "610.88",
+                "pcie_gen_current":  "1",
+                "pcie_gen_max":  "4",
+                "pcie_width_current":  "16",
+                "pcie_width_max":  "16",
+                "note_pcie":  "idle reports gen2 x16; power-saving downgrade, must re-check under load"
+            },
+    "cpu":  {
+                "name":  "AMD Ryzen Threadripper PRO 5975WX 32-Cores",
+                "cores":  32,
+                "logical":  64,
+                "tctl_idle_c":  "UNAVAILABLE",
+                "tctl_note":  "MSAcpi_ThermalZoneTemperature not supported; no HWiNFO installed. Tctl\u003e=95C abort criterion CANNOT be enforced -- reported as a limitation, not silently skipped."
+            },
+    "memory":  {
+                   "total_gb":  127.8,
+                   "available_gb":  85.1,
+                   "configured_clock_mts":  [
+                                                3200,
+                                                3200,
+                                                3200,
+                                                3200
+                                            ],
+                   "note":  "memory-thermal risk confirmed by user (fan obstruction -\u003e RAM heat); DIMM temp NOT readable on this host"
+               },
+    "os":  "Microsoft Windows Server 2025 Datacenter build 26100",
+    "power_plan":  "电源方案 GUID: 45eaae79-d4ce-4ed5-b20a-5d10cc3cdd01  (卓越性能)",
+    "binaries":  {
+                     "llama_server_exe":  "715F0EA98819F03FC596E9D352E989FC0AE093056282E0D73B2D657E7AFA7D02",
+                     "llama_server_impl_dll":  "6611DEBB6EC8DCBEA16377420854288B6646DAD3D132AC704C6396A688384D91",
+                     "llama_perplexity_exe":  "95B1A3C6B18D3BB7834F4DB633E24CCC7B43EF89AADEC1D9B33B6A7A8B6C96F4",
+                     "llama_perplexity_impl_dll":  "425516B8DD4DAE76F8244183649F050ECFEE5E55E390BA513D15BAA4752EBAA2",
+                     "ggml_cuda_dll":  "C1733C225F56B215319C8951E623B9449FAD4EF8F90FED60BAFA4AA2B65A0ABF",
+                     "build":  "b11617 commit 14310190c"
+                 },
+    "model":  {
+                  "path":  "D:\\Models\\LMStudio\\local\\Qwen3-Next-80B-A3B-Instruct\\Qwen3-Next-80B-A3B-Instruct-Q4_K_M.gguf",
+                  "sha256":  "158A9E5B76A1BEF71FCEA4E1990E647088122B51B9FA823A134C6F6033D856BE",
+                  "file_bytes":  50075035936
+              },
+    "corpus":  {
+                   "path":  "F:\\UserData\\Documents\\deepseek-harness\\default-workspace\\research\\moe-heterogeneous\\T-REDO-PREPOST-20261017-1118\\corpus\\wikitext-2-raw\\wiki.test.raw",
+                   "sha256":  "173C87A53759E0201F33E0CCF978E510C2042D7F2CB78229D9A50D79B9E7DD08",
+                   "bytes":  1290590
+               },
+    "interference":  {
+                         "gpu_processes_found_before_cleanup":  20,
+                         "killed":  85,
+                         "killed_names":  [
+                                              "steam",
+                                              "steamservice",
+                                              "steamwebhelper",
+                                              "BaiduNetdiskUnite",
+                                              "BaiduNetdisk",
+                                              "baidunetdiskhost",
+                                              "quark_cloud_drive",
+                                              "clouddrive_desktop_widget_independent",
+                                              "msedgewebview2",
+                                              "ChatGPT",
+                                              "codex-computer-use-swift",
+                                              "MOTUMSeries",
+                                              "MOTUCoreUACAudioPolicyMediator",
+                                              "wgc",
+                                              "wgc_renderer_host",
+                                              "AzureArcSysTray",
+                                              "PowerToys",
+                                              "PowerToys.AdvancedPaste",
+                                              "PowerToys.AlwaysOnTop",
+                                              "PowerToys.Awake",
+                                              "PowerToys.ColorPickerUI",
+                                              "PowerToys.FancyZones",
+                                              "PowerToys.Peek.UI",
+                                              "PowerToys.QuickAccess",
+                                              "PowerToys.ShortcutGuide",
+                                              "Microsoft.CmdPal.UI",
+                                              "Microsoft.CmdPal.Ext.PowerToys",
+                                              "Creative Cloud",
+                                              "Creative Cloud Helper",
+                                              "Creative Cloud UI Helper",
+                                              "AdobeNotificationClient",
+                                              "Adobe Desktop Service",
+                                              "AdobeIPCBroker",
+                                              "SearchHost"
+                                          ],
+                         "preserved":  [
+                                           "Weixin",
+                                           "DSH Desktop",
+                                           "explorer",
+                                           "dwm",
+                                           "ShellHost",
+                                           "StartMenuExperienceHost",
+                                           "MsMpEng",
+                                           "Taskmgr"
+                                       ],
+                         "hyperv_vm":  "Saved state (not running)",
+                         "ollama":  "not present (terminated earlier)"
+                     }
+}
