@@ -1,0 +1,22 @@
+{
+    "group":  "G06",
+    "model_tag":  "gpt-oss-120b",
+    "model_path":  "D:\\Models\\LMStudio\\local\\gpt-oss-120b\\gpt-oss-120b-MXFP4.gguf",
+    "ncmoe":  30,
+    "cache_mib":  0,
+    "threads":  16,
+    "ccd":  2,
+    "ctx":  8192,
+    "predict":  192,
+    "runs_requested":  3,
+    "affinity_requested":  "0x0000FFFF0000FFFF",
+    "affinity_applied":  "0x0000FFFF0000FFFF",
+    "affinity_ok":  true,
+    "server_args":  "-m D:\\Models\\LMStudio\\local\\gpt-oss-120b\\gpt-oss-120b-MXFP4.gguf -c 8192 -ngl 99 -lv 4 --host 127.0.0.1 --port 9931 -t 16 -tb 16 -ncmoe 30 -C 0000FFFF0000FFFF -Cb 0000FFFF0000FFFF --cpu-strict 1 --cpu-strict-batch 1",
+    "launched":  "2026-10-15 23:11:14",
+    "load_seconds":  24,
+    "ready":  true,
+    "graceful_exit":  true,
+    "prompt_file":  "prompt-512.txt",
+    "sampler_used":  true
+}

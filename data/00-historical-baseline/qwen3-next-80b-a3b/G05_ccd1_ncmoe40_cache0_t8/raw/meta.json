@@ -1,0 +1,22 @@
+{
+    "group":  "G05",
+    "model_tag":  "qwen3-next-80b-a3b",
+    "model_path":  "D:\\Models\\LMStudio\\local\\Qwen3-Next-80B-A3B-Instruct\\Qwen3-Next-80B-A3B-Instruct-Q4_K_M.gguf",
+    "ncmoe":  40,
+    "cache_mib":  0,
+    "threads":  8,
+    "ccd":  1,
+    "ctx":  8192,
+    "predict":  192,
+    "runs_requested":  3,
+    "affinity_requested":  "0x000000FF000000FF",
+    "affinity_applied":  "0x000000FF000000FF",
+    "affinity_ok":  true,
+    "server_args":  "-m D:\\Models\\LMStudio\\local\\Qwen3-Next-80B-A3B-Instruct\\Qwen3-Next-80B-A3B-Instruct-Q4_K_M.gguf -c 8192 -ngl 99 -lv 4 --host 127.0.0.1 --port 9931 -t 8 -tb 8 -ncmoe 40 -C 000000FF000000FF -Cb 000000FF000000FF --cpu-strict 1 --cpu-strict-batch 1",
+    "launched":  "2026-10-15 22:27:45",
+    "load_seconds":  18,
+    "ready":  true,
+    "graceful_exit":  true,
+    "prompt_file":  "prompt-512.txt",
+    "sampler_used":  true
+}

@@ -1,0 +1,20 @@
+{
+  "cuda_mib": 22394.3,
+  "cpu_mapped_mib": 39934.0,
+  "host_mib": 0.0,
+  "sum_mib": 62328.3,
+  "n_mapped_blocks": 49,
+  "n_cuda_blocks": 1,
+  "model_info": {
+    "n_ctx_train": "131072",
+    "n_embd": "2880",
+    "n_layer": "36",
+    "n_expert": "128",
+    "n_expert_used": "4",
+    "model_type": "120B"
+  },
+  "offloaded": {
+    "offloaded": 37,
+    "total": 37
+  }
+}

@@ -1,0 +1,15 @@
+0.22.748.662 I sched_reserve: reserving ...
+0.22.760.308 I sched_reserve:      CUDA0 compute buffer size =   614.40 MiB
+0.22.760.317 I sched_reserve:  CUDA_Host compute buffer size =    31.53 MiB
+0.22.760.321 I sched_reserve: graph (pp bs=512, tg bs=4): nodes = 2025 / 2025, splits = 182 / 62, input objects = 4 / 4, input tensors = 12 / 12
+0.22.760.322 I sched_reserve: reserve took 11.66 ms, sched copies = 1
+
+--- parsed ---
+{
+  "pp_bs": 512,
+  "tg_bs": 4,
+  "pp_nodes": 2025,
+  "tg_nodes": 2025,
+  "pp_splits": 182,
+  "tg_splits": 62
+}

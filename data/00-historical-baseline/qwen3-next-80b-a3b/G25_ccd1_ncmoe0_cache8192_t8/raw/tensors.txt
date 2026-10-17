@@ -1,0 +1,5 @@
+CUDA blocks: 1, total 47582.7 MiB
+CPU_Mapped blocks: 1, total 166.9 MiB
+Host blocks total: 0.0 MiB
+CPU block sizes:
+  166.92
