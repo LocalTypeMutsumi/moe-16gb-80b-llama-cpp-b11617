@@ -55,7 +55,7 @@ llama_moe_cache: ubatch <= 8: hits = 0, misses = 808, hit rate = 0.00%, uploaded
 llama_moe_cache: large batches: 3525 experts copied from the cache, 2209.95 MiB
 ```
 
-Perplexity runs go through the **large-batch** path (3525 experts served from cache). Because fetching merely relocates expert weights and does not change the arithmetic, the result is bit-identical. Cache size is not a quality knob here — only a speed knob.
+Perplexity runs go through the **large-batch** path (3525 experts served from cache). Fetching relocates expert weights without changing the arithmetic, which is *consistent with* the observed result — but the output is rounded to 4 decimals, so this is "no change at display precision", not a bit-identical claim. Cache size is not a quality knob here — only a speed knob.
 
 > Prior work for comparison: ChaeWoo Son (2026-10) measured **+5.7% PPL for substitution** and **+0.35% for selective fetch** on the same model. Our fetch-only 0.0000% is consistent with "fetch does not alter numerics". Different hardware, different implementation — not a head-to-head.
 
@@ -140,7 +140,7 @@ PCIe 4.0 ×16        =  24.45 GB/s available
 ⇒ allowed miss traffic = 0.303 GB/token  ⇒ implied hit rate = 82.7%
 ```
 
-**Cross-check with two independent measurements:**
+**The two-sided arithmetic below is NOT an independent cross-check** (retracted after audit): both sides reuse the same speeds, the same bandwidth constants and the same 1.75 GB/token estimate, so the agreement is algebraic, not evidential.
 
 ```
 cache=0    : 48 GB/s ÷ 26.84 = 1.788 GB/token  (full traffic, RAM side)
@@ -225,3 +225,4 @@ An external audit found real defects. All are confirmed and fixed; details in
 
 **What survives the audit:**
 > On this 16 GB card and workstation, expert caching substantially improves speed for the tested workload: ~**80.7 t/s** on a repeated fixed prompt, ~**68.0 t/s** on varied real inputs. Small caches can regress. No perplexity change was observed in the limited test. Bottleneck attribution and consumer-platform portability still require independent verification.
+

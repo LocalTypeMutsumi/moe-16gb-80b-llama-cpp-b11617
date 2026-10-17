@@ -1,4 +1,4 @@
-# task-b.ps1 -- T-REDO-PREPOST task B: baseline stability.
+﻿# task-b.ps1 -- T-REDO-PREPOST task B: baseline stability.
 #
 # SPEC (handoff pack 5.2)
 #   5 independent processes; each process runs 10 real-text prompts and 10 random-token prompts.
@@ -156,10 +156,18 @@ if ($rows.Count) {
   $rows | Export-Csv -Path (Join-Path $OutRoot 'TASK-B\summary.csv') -NoTypeInformation -Encoding UTF8
   $rt = @($rows | ForEach-Object { [double]$_.real_tps } | Sort-Object)
   $gt = @($rows | ForEach-Object { [double]$_.rand_tps } | Sort-Object)
-  function Med($a) { if ($a.Count) { $a[[int]($a.Count/2)] } else { $null } }
+  # MEDIAN BUG (external audit 2026-10-17): $a[[int]($a.Count/2)] picked the MAX for 3 samples.
+# Even sample counts now average the two middle values.
+function Med($a) {
+  if (-not $a.Count) { return $null }
+  $s = @($a | Sort-Object); $n = $s.Count
+  if ($n % 2 -eq 1) { return $s[($n-1)/2] }
+  return [math]::Round(($s[$n/2-1] + $s[$n/2]) / 2, 2)
+}
   Write-Output ""
   Write-Output ("real   median {0:N2} t/s over {1} samples" -f (Med $rt), $rt.Count)
   Write-Output ("random median {0:N2} t/s over {1} samples" -f (Med $gt), $gt.Count)
   if ((Med $rt) -gt 0) { Write-Output ("diff: {0:N1}%" -f ((($gt[0] - $rt[0]) / $rt[0]) * 100)) }
 }
 Write-Output ("done at {0}" -f (Get-Date -Format 'HH:mm:ss'))
+
